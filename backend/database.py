@@ -5,8 +5,12 @@ from datetime import datetime
 
 DATABASE_URL = "sqlite:///./db.sqlite"
 
+#create the conection with the database
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+#creates a session fabrick whith these properties
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine) 
+#creates special Base class ofSQLalchemy
+#everu class that receives Base represent data tables
 Base = declarative_base()
 
 class ContactMessage(Base):

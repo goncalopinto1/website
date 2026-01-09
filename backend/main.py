@@ -13,6 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+#BaseModel serves to validate data, convert json to python type and check types
 class Contact(BaseModel):
     name: str
     email: str
@@ -21,7 +22,7 @@ class Contact(BaseModel):
 @app.post("/contact")
 def contact(contact: Contact):
     #store on sqlite
-    db = SessionLocal()
+    db = SessionLocal() #creates a session instace that i'll use to talk to the database
     db_message = ContactMessage(
         name=contact.name,
         email=contact.email,
