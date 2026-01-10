@@ -2,7 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from backend.database import ContactMessage, SessionLocal
+from database import ContactMessage, SessionLocal
+from github_projects import fetch_projects
+from models import Project
 
 app = FastAPI()
 
@@ -34,3 +36,10 @@ def contact(contact: Contact):
     db.close()
 
     return{"status": "Message received"}
+
+#created an /projects endpoint
+#fast api receives a list[Project] python object and calls .dump to revert it to json and then sends it to the frontend via http request
+#pydantic with BaseModel gives to the Project class the methods to converto to json automatically
+@app.get("/projects", response_model=list[Project])
+def get_project():
+    return fetch_projects()

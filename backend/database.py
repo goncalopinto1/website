@@ -2,8 +2,10 @@ from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
+from pathlib import Path
 
-DATABASE_URL = "sqlite:///./db.sqlite"
+BASE_DIR = Path(__file__).resolve().parent
+DATABASE_URL = f"sqlite:///{BASE_DIR / 'db.sqlite'}"
 
 #create the conection with the database
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})

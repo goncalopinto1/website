@@ -18,4 +18,4 @@ document
 
         const result = await res.json(); // transforms the json response (200 etc) in js object
         document.getElementById("status").innerText = result.status;
-    })
+    });
