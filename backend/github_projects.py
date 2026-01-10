@@ -9,7 +9,7 @@ def fetch_projects():
 
     for repo in data:
         if "portfolio" in repo.get("topics", []): #in case topics don't exists
-            if not repo["fork"] and repo["description"]:
+            if repo["description"]:
                 project = Project(
                     name=repo["name"],
                     description=repo["description"],
