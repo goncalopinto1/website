@@ -62,13 +62,13 @@ async function deleteContact(id){
 document.getElementById("filter").addEventListener("change", (e) => {
     let sorted = [...cachedContacts] //makes a copy of the array the = would make them look to the same object
 
-    if(e.target.value == "Newest"){
+    if(e.target.value == "newest"){
         sorted.sort((a, b) => b.id - a.id); // if > 0 then b comes before a
     }
-    else if(e.target.value == "Oldest"){
+    else if(e.target.value == "oldest"){
         sorted.sort((a, b) => a.id - b.id);
     }
-    else if(e.target.value == "Alphabetic"){
+    else if(e.target.value == "alphabetic"){
         sorted.sort((a, b) => a.name.localeCompare(b.name)); // A-Z
     }
 
