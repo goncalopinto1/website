@@ -19,3 +19,18 @@ def create_contact_in_db(contact: ContactCreate):
     db.close()
 
     return{"status": "Message received"}
+
+def delete_contacts(contact_id: int):
+    db = SessionLocal()
+
+    contact = db.query(ContactMessage).filter(ContactMessage.id == contact_id).first()
+
+    if not contact:
+        db.close()
+        return {"error": "Contact not found"}
+    
+    db.delete(contact)
+    db.commit()
+    db.close()
+
+    return {"status": "deleted"}
