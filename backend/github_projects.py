@@ -1,5 +1,5 @@
 import requests
-from models import Project 
+from schema import Project 
 
 def fetch_projects():
     res = requests.get("https://api.github.com/users/goncalopinto1/repos")

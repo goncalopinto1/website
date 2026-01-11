@@ -1,10 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 
-from database import ContactMessage, SessionLocal
+from contacts import create_contact_in_db, fetch_contacts
 from github_projects import fetch_projects
-from models import Project
+from schema import ContactCreate, ContactOut, Project
 
 app = FastAPI()
 
@@ -15,27 +14,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-#BaseModel serves to validate data, convert json to python type and check types
-class Contact(BaseModel):
-    name: str
-    email: str
-    message: str
+@app.get("/contact")
+def get_contact():
+    contacts = fetch_contacts()
+    return[ContactOut.model_validate(c, from_attributes=True) for c in contacts]
 
 @app.post("/contact")
-def contact(contact: Contact):
-    #store on sqlite
-    db = SessionLocal() #creates a session instace that i'll use to talk to the database
-    db_message = ContactMessage(
-        name=contact.name,
-        email=contact.email,
-        message=contact.message
-    )
-    db.add(db_message)
-    db.commit()
-    db.refresh(db_message)
-    db.close()
-
-    return{"status": "Message received"}
+def contact(contact: ContactCreate):
+    return create_contact_in_db(contact)
 
 #created an /projects endpoint
 #fast api receives a list[Project] python object and calls .dump to revert it to json and then sends it to the frontend via http request
