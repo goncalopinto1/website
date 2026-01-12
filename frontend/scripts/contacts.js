@@ -1,3 +1,5 @@
+let StatusTimeout;
+
 document
     .getElementById("contact-form")
     .addEventListener("submit", async (e) => {
@@ -16,6 +18,13 @@ document
             body: JSON.stringify(data), // transforms by object to a json string
         });
 
-        const result = await res.json(); // transforms the json response (200 etc) in js object
-        document.getElementById("status").innerText = result.status;
+        const status = document.getElementById("status");
+        status.textContent = "Message received";
+        status.className = "status success";
+
+        clearTimeout(StatusTimeout);
+
+        StatusTimeout = setTimeout(() => {
+            status.className = "status hidden";
+        }, 3000);
     });
