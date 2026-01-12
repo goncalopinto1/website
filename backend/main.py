@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from contacts import create_contact_in_db, delete_contacts, fetch_contacts
+from contacts import create_contact_in_db, delete_contacts, fetch_contacts, mark_read
 from github_projects import fetch_projects
-from schema import ContactCreate, ContactOut, Project
+from schema import ContactCreate, ContactOut, ContactReadUpdate, Project
 
 app = FastAPI()
 
@@ -26,6 +26,10 @@ def contact(contact: ContactCreate):
 @app.delete("/contact/{contact_id}")
 def delete_contact(contact_id: int):
     return delete_contacts(contact_id)
+
+@app.patch("/contact/{contact_id}")
+def mark_as_read(contact_id: int, is_read: ContactReadUpdate):
+    return mark_read(contact_id, is_read)
 
 #created an /projects endpoint
 #fast api receives a list[Project] python object and calls .dump to revert it to json and then sends it to the frontend via http request

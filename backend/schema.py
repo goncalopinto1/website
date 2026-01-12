@@ -17,3 +17,6 @@ class ContactOut(ContactCreate):
 
     class Config:
         orm_mode = True
+
+class ContactReadUpdate(BaseModel):
+    is_read: bool
