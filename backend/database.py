@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, DateTime
+from sqlalchemy import Boolean, create_engine, Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
@@ -22,6 +22,7 @@ class ContactMessage(Base):
     name = Column(String, nullable=False)
     email = Column(String, nullable=False)
     message = Column(String, nullable=False)
+    is_read = Column(Boolean, default=False)
     timestamp = Column(DateTime, default=datetime.utcnow)
 
 Base.metadata.create_all(bind=engine)
