@@ -14,6 +14,7 @@ class ContactCreate(BaseModel):
 
 class ContactOut(ContactCreate):
     id: int
+    is_read: int
 
     class Config:
         orm_mode = True
