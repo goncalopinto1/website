@@ -17,3 +17,11 @@
     background: #f8d7da;
     color: #721c24;
 }
+
+.contact-card.not-read{
+    color : #000000
+}
+
+.contact-card.read {
+    color: darkgray
+}
