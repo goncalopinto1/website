@@ -1,4 +1,5 @@
-from database import ContactMessage, SessionLocal
+from database import SessionLocal
+from models import ContactMessage
 from schema import ContactCreate, ContactReadUpdate
 def fetch_contacts():
     db = SessionLocal()

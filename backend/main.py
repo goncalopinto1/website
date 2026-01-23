@@ -4,6 +4,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from contacts import create_contact_in_db, delete_contacts, fetch_contacts, mark_read
 from github_projects import fetch_projects
 from schema import ContactCreate, ContactOut, ContactReadUpdate, Project
+from database import engine, Base
+from models import ContactMessage, Users
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
