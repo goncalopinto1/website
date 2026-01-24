@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, Depends, status, HTTPException
+from fastapi import FastAPI, APIRouter, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 
@@ -6,9 +6,8 @@ from contacts import create_contact_in_db, delete_contacts, fetch_contacts, mark
 from github_projects import fetch_projects
 from schema import ContactCreate, ContactOut, ContactReadUpdate, Project
 from database import engine, Base
-from models import ContactMessage, Users
 from admin_login import admin_login
-from token import verify_token
+from verify_token import verify_token
 
 Base.metadata.create_all(bind=engine)
 
@@ -34,11 +33,11 @@ def contact(contact: ContactCreate):
     return create_contact_in_db(contact)
 
 @app.delete("/contact/{contact_id}")
-def delete_contact(contact_id: int):
+def delete_contact(contact_id: int, current_user: str = Depends(verify_token)):
     return delete_contacts(contact_id)
 
 @app.patch("/contact/{contact_id}")
-def mark_as_read(contact_id: int, is_read: ContactReadUpdate):
+def mark_as_read(contact_id: int, is_read: ContactReadUpdate, current_user: str = Depends(verify_token)):
     return mark_read(contact_id, is_read)
 
 #created an /projects endpoint

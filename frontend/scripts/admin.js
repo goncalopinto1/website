@@ -3,17 +3,25 @@ let StatusTimeout;
 const token = localStorage.getItem("token");
 
 async function loadContacts(){
-    try {
-        const res = await fetch("http://localhost:8000/contact", {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`
+    if(!token){
+        window.location.href = "../pages/adminLogin.html";
+    } else {
+        try {
+            const res = await fetch('http://localhost:8000/contact', {
+                headers: { "Authorization": `Bearer ${token}` }
+            })
+
+            if(!res.ok){
+                localStorage.removeItem("token");
+                window.location.href = "../pages/adminLogin.html";
+            } else {
+                const contacts = await res.json()
+                cachedContacts = contacts;
+                renderContacts(cachedContacts)
             }
-        });
-        cachedContacts = await res.json();
-        renderContacts(cachedContacts);
-    } catch(err) {
-        console.error("Error in loading contacts:", err);
+        } catch(err) {
+            window.location.href = "../pages/adminLogin.html";
+        }
     }
 }
 
@@ -71,7 +79,8 @@ async function deleteContact(id){
 
     try{
         const res = await fetch(`http://localhost:8000/contact/${id}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: { "Authorization": `Bearer ${token}` }
         });
 
         if(!res.ok){
@@ -90,7 +99,10 @@ async function markAsRead(id){
     try {
         const res = await fetch(`http://localhost:8000/contact/${id}`, {
             method: "PATCH", //modifying some fields
-            headers:  {"Content-Type": "application/json" },
+            headers:  {
+                "Content-Type": "application/json" ,
+                "Authorization": `Bearer ${token}`
+            },
             body: JSON.stringify({ is_read: true })
         });
         
