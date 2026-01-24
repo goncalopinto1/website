@@ -1,10 +1,14 @@
 let cachedContacts = [];
 let StatusTimeout;
+const token = localStorage.getItem("token");
 
 async function loadContacts(){
     try {
         const res = await fetch("http://localhost:8000/contact", {
-            method: "GET"
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
         });
         cachedContacts = await res.json();
         renderContacts(cachedContacts);
