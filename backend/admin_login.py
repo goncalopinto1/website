@@ -1,23 +1,11 @@
-from passlib.context import CryptContext
-from database import SessionLocal
+from fastapi.security import OAuth2PasswordRequestForm
+from jose import jwt
+from datetime import datetime, timedelta
+from fastapi import Depends, HTTPException, status
 from models import Users
 
-pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
+def admin_login(user: Users):
+    admin_email = user.email
+    admin_password = user.hashed_password
 
-db = SessionLocal()
-
-admin_email = "admin@email.com"
-admin_password = "BestAdmin"
-
-hashed_pass = pwd_context.hash(admin_password)
-
-admin_user = Users(
-    email=admin_email,
-    hashed_password=hashed_pass
-)
-
-db.add(admin_user)
-db.commit()
-db.close()
-
-print(f"✅ Admin profile created with email: {admin_email}")
+    

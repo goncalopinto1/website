@@ -6,7 +6,7 @@ from github_projects import fetch_projects
 from schema import ContactCreate, ContactOut, ContactReadUpdate, Project
 from database import engine, Base
 from models import ContactMessage, Users
-
+from admin_login import admin_login
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -41,3 +41,7 @@ def mark_as_read(contact_id: int, is_read: ContactReadUpdate):
 @app.get("/projects", response_model=list[Project])
 def get_project():
     return fetch_projects()
+
+@app.post("admin/login")
+def login(user: Users):
+    return admin_login(user)
