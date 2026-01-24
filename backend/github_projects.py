@@ -9,11 +9,11 @@ def fetch_projects():
 
     for repo in data:
         if "portfolio" in repo.get("topics", []): #in case topics don't exists
-            if repo["description"]:
+            if not repo["fork"] and repo["description"]:
                 project = Project(
                     name=repo["name"],
                     description=repo["description"],
-                    url=repo["url"],
+                    url=repo["html_url"],
                     language=repo["language"]
                 )
                 projects.append(project)
