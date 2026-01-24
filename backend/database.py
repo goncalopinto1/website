@@ -1,7 +1,6 @@
-from sqlalchemy import Boolean, create_engine, Column, Integer, String, DateTime
+from sqlalchemy import  create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from datetime import datetime
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -14,15 +13,3 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 #creates special Base class ofSQLalchemy
 #everu class that receives Base represent data tables
 Base = declarative_base()
-
-class ContactMessage(Base):
-    __tablename__ = "contacts"
-
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False)
-    email = Column(String, nullable=False)
-    message = Column(String, nullable=False)
-    is_read = Column(Boolean, default=False)
-    timestamp = Column(DateTime, default=datetime.utcnow)
-
-Base.metadata.create_all(bind=engine)
