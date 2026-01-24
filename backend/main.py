@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter, Depends, status, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import OAuth2PasswordRequestForm
 
 from contacts import create_contact_in_db, delete_contacts, fetch_contacts, mark_read
 from github_projects import fetch_projects
@@ -17,6 +18,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+router = APIRouter(tags=["Authentication"])
 
 @app.get("/contact", response_model=list[ContactOut])
 def get_contact():
@@ -42,6 +45,6 @@ def mark_as_read(contact_id: int, is_read: ContactReadUpdate):
 def get_project():
     return fetch_projects()
 
-@app.post("admin/login")
-def login(user: Users):
-    return admin_login(user)
+@app.post("/admin/login")
+def login(user_credentials: OAuth2PasswordRequestForm = Depends()):
+    return admin_login(user_credentials)
