@@ -5,10 +5,13 @@ from database import SessionLocal
 from datetime import datetime, timedelta
 from fastapi import Depends, HTTPException, status
 from models import Users
-
+from dotenv import load_dotenv
+import os
 pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
-SECRET_KEY = "wh2_tE9weS-z7Lvt6gxadcW7-TfTaSQvxsXNt-eiwxA"
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 

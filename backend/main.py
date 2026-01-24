@@ -8,6 +8,8 @@ from schema import ContactCreate, ContactOut, ContactReadUpdate, Project
 from database import engine, Base
 from models import ContactMessage, Users
 from admin_login import admin_login
+from token import verify_token
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -21,8 +23,9 @@ app.add_middleware(
 
 router = APIRouter(tags=["Authentication"])
 
+# Depends tells that the function inside must be performed before the endpoint one
 @app.get("/contact", response_model=list[ContactOut])
-def get_contact():
+def get_contact(current_user: str = Depends(verify_token)):
     contacts = fetch_contacts()
     return[ContactOut.model_validate(c, from_attributes=True) for c in contacts]
 
