@@ -33,7 +33,7 @@ def create_contact_in_db(contact: ContactCreate):
         r = resend.Emails.send({
             "from": "onboarding@resend.dev",
             "to": os.getenv("ADMIN_EMAIL"),
-            "reply_to": contact.email,  # ✅ ADICIONA ISTO!
+            "reply_to": contact.email, 
             "subject": f"New message from {contact.name}",
             "html": f"""
                 <h2>New message on your website!</h2>
