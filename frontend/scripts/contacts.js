@@ -1,7 +1,5 @@
 let StatusTimeout;
-console.log("✅ Script contacts.js carregado");
 
-// ✅ ESPERA O DOM CARREGAR!
 document.addEventListener("DOMContentLoaded", () => {
     console.log("📄 DOM carregado");
     
@@ -40,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log("✅ Entrou no res.ok");
                 status.textContent = "Message received";
                 status.className = "status success";
-                form.reset();  // ← Usa a variável 'form'
+                form.reset();  
                 console.log("✅ Form resetado");
             } else {
                 console.log("❌ Erro na resposta");
