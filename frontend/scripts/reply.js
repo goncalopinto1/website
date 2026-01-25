@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     if(!token){
         console.log("❌ invalid token");
-        window.location.href = "../pages/adminLogin.html";
+        window.location.href = "../pages/admin-login.html";
         return;
     }
 
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         if(!res.ok){
-            window.location.href = "../pages/adminLogin.html";
+            window.location.href = "../pages/admin-login.html";
             return;
         }
 

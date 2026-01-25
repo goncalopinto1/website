@@ -1,5 +1,3 @@
-console.log("Script loaded!");
-
 const form = document.getElementById("admin-login");
 console.log("Form found:", form);
 

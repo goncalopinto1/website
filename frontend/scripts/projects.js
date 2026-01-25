@@ -1,9 +1,12 @@
-async function loadProjects() {
+export async function loadProject() {
+    console.log("yeyyy");
     try {
+        const container = document.getElementById("my-projects"); 
+        if (!container) return;
+
         const res = await fetch("http://localhost:8000/projects");
         const projects = await res.json();
 
-        const container = document.getElementById("projects");
         container.innerHTML = ""; // limpa antes
 
         projects.forEach(p => {
@@ -23,7 +26,3 @@ async function loadProjects() {
         console.error("Erro ao carregar projetos:", err);
     };
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    loadProjects();
-});

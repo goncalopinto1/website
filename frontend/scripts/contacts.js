@@ -1,8 +1,6 @@
-let StatusTimeout;
+export function sendContacts(){
+    let StatusTimeout;
 
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("📄 DOM carregado");
-    
     const form = document.getElementById("contact-form");
     console.log("📋 Form encontrado:", form);
     
@@ -63,4 +61,4 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 3000);
         }
     });
-});
+}

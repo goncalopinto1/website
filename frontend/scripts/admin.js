@@ -4,7 +4,7 @@ const token = localStorage.getItem("token");
 
 async function loadContacts(){
     if(!token){
-        window.location.href = "../pages/adminLogin.html";
+        window.location.href = "../pages/admin-login.html";
     } else {
         try {
             const res = await fetch('http://localhost:8000/contact', {
@@ -13,14 +13,14 @@ async function loadContacts(){
 
             if(!res.ok){
                 localStorage.removeItem("token");
-                window.location.href = "../pages/adminLogin.html";
+                window.location.href = "../pages/admin-login.html";
             } else {
                 const contacts = await res.json()
                 cachedContacts = contacts;
                 renderContacts(cachedContacts)
             }
         } catch(err) {
-            window.location.href = "../pages/adminLogin.html";
+            window.location.href = "../pages/admin-login.html";
         }
     }
 }
