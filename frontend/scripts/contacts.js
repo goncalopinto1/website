@@ -1,30 +1,68 @@
 let StatusTimeout;
+console.log("✅ Script contacts.js carregado");
 
-document
-    .getElementById("contact-form")
-    .addEventListener("submit", async (e) => {
+// ✅ ESPERA O DOM CARREGAR!
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("📄 DOM carregado");
+    
+    const form = document.getElementById("contact-form");
+    console.log("📋 Form encontrado:", form);
+    
+    if (!form) {
+        console.error("❌ Form não encontrado!");
+        return;
+    }
+    
+    form.addEventListener("submit", async (e) => {
+        console.log("🚀 Form submetido!");
         e.preventDefault();
-
+        
         const data = {
             name: document.getElementById("name").value,
             email: document.getElementById("email").value,
             message: document.getElementById("message").value,
         };
 
-        //my backend runs simustaneasly in the port 8000
-        const res = await fetch("http://localhost:8000/contact", {
-            method: "POST", // sets the type of api request
-            headers: {"Content-Type": "application/json" }, // says what is the data type in this case json
-            body: JSON.stringify(data), // transforms by object to a json string
-        });
+        try {
+            console.log("📤 Enviando request...");
+            
+            const res = await fetch("http://localhost:8000/contact", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(data),
+            });
 
-        const status = document.getElementById("status");
-        status.textContent = "Message received";
-        status.className = "status success";
+            console.log("📥 Response:", res.status, res.ok);
 
-        clearTimeout(StatusTimeout);
+            const status = document.getElementById("status");
 
-        StatusTimeout = setTimeout(() => {
-            status.className = "status hidden";
-        }, 3000);
+            if (res.ok) {
+                console.log("✅ Entrou no res.ok");
+                status.textContent = "Message received";
+                status.className = "status success";
+                form.reset();  // ← Usa a variável 'form'
+                console.log("✅ Form resetado");
+            } else {
+                console.log("❌ Erro na resposta");
+                status.textContent = "Failed to send message";
+                status.className = "status error";
+            }
+
+            clearTimeout(StatusTimeout);
+            StatusTimeout = setTimeout(() => {
+                status.className = "status hidden";
+            }, 3000);
+
+        } catch (error) {
+            console.log("❌ Error:", error);
+            const status = document.getElementById("status");
+            status.textContent = "Connection error";
+            status.className = "status error";
+            
+            clearTimeout(StatusTimeout);
+            StatusTimeout = setTimeout(() => {
+                status.className = "status hidden";
+            }, 3000);
+        }
     });
+});
