@@ -1,6 +1,6 @@
 from database import SessionLocal
 from models import ContactMessage
-from schema import ContactCreate, ContactReadUpdate
+from schema import ContactCreate, ContactReadUpdate, ReplyMessage
 import resend
 from dotenv import load_dotenv
 import os
@@ -33,7 +33,6 @@ def create_contact_in_db(contact: ContactCreate):
         r = resend.Emails.send({
             "from": "onboarding@resend.dev",
             "to": os.getenv("ADMIN_EMAIL"),
-            "reply_to": contact.email, 
             "subject": f"New message from {contact.name}",
             "html": f"""
                 <h2>New message on your website!</h2>
@@ -47,6 +46,18 @@ def create_contact_in_db(contact: ContactCreate):
         print(f"Error sending the email: {e}")
 
     return {"status": "success", "message": "Message received"}
+
+def get_contact_by_id(contact_id: int):
+    db = SessionLocal()
+
+    contact = db.query(ContactMessage).filter(ContactMessage.id == contact_id).first()
+
+    if not contact:
+        db.close()
+        return {"error": "Contact not found"}
+    
+    db.close()
+    return contact
 
 def delete_contacts(contact_id: int):
     db = SessionLocal()
@@ -78,3 +89,26 @@ def mark_read(contact_id: int, is_read: ContactReadUpdate):
     db.refresh(contact)
     db.close()
     return {"status": "Updated"}
+
+def reply(contact_id: int, message: ReplyMessage):
+    db = SessionLocal()
+
+    contact = db.query(ContactMessage).filter(ContactMessage.id == contact_id).first()
+
+    if not contact:
+        db.close()
+        return {"error": "Contact not found"}
+    
+    contact_email = contact.email
+
+    r = resend.Emails.send({
+        "from": "onboarding@resend.dev",
+        "to": contact_email,
+        "subject": "Gonçalo Pinto has sent you a message!",
+        "html": f"""
+            <p>{message.message}</p>
+        """
+    })
+
+    db.close()
+    return {"status": "Reply sent"}

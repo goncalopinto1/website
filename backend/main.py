@@ -2,9 +2,9 @@ from fastapi import FastAPI, APIRouter, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 
-from contacts import create_contact_in_db, delete_contacts, fetch_contacts, mark_read
+from contacts import create_contact_in_db, delete_contacts, fetch_contacts, mark_read, reply, get_contact_by_id
 from github_projects import fetch_projects
-from schema import ContactCreate, ContactOut, ContactReadUpdate, Project
+from schema import ContactCreate, ContactOut, ContactReadUpdate, Project, ReplyMessage
 from database import engine, Base
 from admin_login import admin_login
 from verify_token import verify_token
@@ -28,6 +28,10 @@ def get_contact(current_user: str = Depends(verify_token)):
     contacts = fetch_contacts()
     return[ContactOut.model_validate(c, from_attributes=True) for c in contacts]
 
+@app.get("/contact/{contact_id}")
+def get_contact(contact_id: int, current_user: str = Depends(verify_token)):
+    return get_contact_by_id(contact_id)
+
 @app.post("/contact")
 def contact(contact: ContactCreate):
     return create_contact_in_db(contact)
@@ -40,6 +44,7 @@ def delete_contact(contact_id: int, current_user: str = Depends(verify_token)):
 def mark_as_read(contact_id: int, is_read: ContactReadUpdate, current_user: str = Depends(verify_token)):
     return mark_read(contact_id, is_read)
 
+
 #created an /projects endpoint
 #fast api receives a list[Project] python object and calls .dump to revert it to json and then sends it to the frontend via http request
 #pydantic with BaseModel gives to the Project class the methods to converto to json automatically
@@ -50,3 +55,7 @@ def get_project():
 @app.post("/admin/login")
 def login(user_credentials: OAuth2PasswordRequestForm = Depends()):
     return admin_login(user_credentials)
+
+@app.post("/contact/{contact_id}/reply")
+def reply_to_message(contact_id: int, message: ReplyMessage, current_user: str = Depends(verify_token)):
+    return reply(contact_id, message)

@@ -21,3 +21,6 @@ class ContactOut(ContactCreate):
 
 class ContactReadUpdate(BaseModel):
     is_read: bool
+
+class ReplyMessage(BaseModel):
+    message: str

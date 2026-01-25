@@ -52,7 +52,7 @@ function renderContacts(cachedContacts) {
 
         deleteButton.addEventListener("click", () => {
             deleteContact(c.id);
-        })
+        });
 
         if(c.is_read == 0){
             const markReadButton = document.createElement("button");
@@ -66,6 +66,17 @@ function renderContacts(cachedContacts) {
 
             card.appendChild(markReadButton);
         }
+
+        const responseButton = document.createElement("button");
+        responseButton.classList.add("response-btn");
+        responseButton.type = "button";
+        responseButton.textContent = "Respond to message";
+
+        responseButton.addEventListener("click", () => {
+            window.location.href = `../pages/reply.html?contact_id=${c.id}`;
+        });
+
+        card.appendChild(responseButton);
 
         card.appendChild(deleteButton);
         card.appendChild(document.createElement("hr"));
