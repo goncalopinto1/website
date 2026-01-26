@@ -38,6 +38,10 @@ export function sendContacts(){
                 status.className = "status success";
                 form.reset();  
                 console.log("✅ Form resetado");
+            } else if(res.status === 429) {
+                const error = await res.json();
+                alert(error.detail);
+                return;
             } else {
                 console.log("❌ Erro na resposta");
                 status.textContent = "Failed to send message";

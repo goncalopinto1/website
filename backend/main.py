@@ -1,8 +1,8 @@
-from fastapi import FastAPI, APIRouter, Depends
+from fastapi import FastAPI, APIRouter, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 
-from contacts import create_contact_in_db, delete_contacts, fetch_contacts, mark_read, reply, get_contact_by_id
+from contacts import create_contact_in_db, delete_contacts, fetch_contacts, mark_read, reply, get_contact_by_id, check_rate_limit
 from github_projects import fetch_projects
 from schema import ContactCreate, ContactOut, ContactReadUpdate, Project, ReplyMessage
 from database import engine, Base
@@ -33,7 +33,11 @@ def get_contact(contact_id: int, current_user: str = Depends(verify_token)):
     return get_contact_by_id(contact_id)
 
 @app.post("/contact")
-def contact(contact: ContactCreate):
+def contact(contact: ContactCreate, request: Request):
+    client_ip = request.client.host
+
+    check_rate_limit(client_ip)
+
     return create_contact_in_db(contact)
 
 @app.delete("/contact/{contact_id}")
