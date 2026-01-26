@@ -2,12 +2,13 @@ from fastapi import FastAPI, APIRouter, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 
-from contacts import create_contact_in_db, delete_contacts, fetch_contacts, mark_read, reply, get_contact_by_id, check_rate_limit
+from contacts import create_contact_in_db, delete_contacts, fetch_contacts, mark_read, reply, get_contact_by_id, check_rate_limit, message_length
 from github_projects import fetch_projects
 from schema import ContactCreate, ContactOut, ContactReadUpdate, Project, ReplyMessage
 from database import engine, Base
 from admin_login import admin_login
 from verify_token import verify_token
+from email_validation import email_validator_address
 
 Base.metadata.create_all(bind=engine)
 
@@ -37,7 +38,8 @@ def contact(contact: ContactCreate, request: Request):
     client_ip = request.client.host
 
     check_rate_limit(client_ip)
-
+    email_validator_address(contact.email)
+    message_length(contact.message)
     return create_contact_in_db(contact)
 
 @app.delete("/contact/{contact_id}")

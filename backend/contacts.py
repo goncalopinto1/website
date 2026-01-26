@@ -13,8 +13,11 @@ resend.api_key = os.getenv("RESEND_API_KEY")
 
 contact_attemps = defaultdict(list)
 
-MAX_ATTEMPTS = 3
+MAX_ATTEMPTS = 20
 TIME_WINDOW = 3600 #1 hour
+
+MIN_LENGTH = 10
+MAX_LENGTH = 1000
 
 def check_rate_limit(ip: str):
     now = datetime.now()
@@ -137,3 +140,9 @@ def reply(contact_id: int, message: ReplyMessage):
 
     db.close()
     return {"status": "Reply sent"}
+
+def message_length(message: str):
+    if len(message) < MIN_LENGTH:
+        raise HTTPException(status_code=422, detail=f"Message must have at least {MIN_LENGTH} characters")
+    if len(message) > MAX_LENGTH:
+        raise HTTPException(status_code=422, detail=f"Message must have a maximum of {MAX_LENGTH} characters")
