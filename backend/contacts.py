@@ -13,7 +13,7 @@ resend.api_key = os.getenv("RESEND_API_KEY")
 
 contact_attemps = defaultdict(list)
 
-MAX_ATTEMPTS = 20
+MAX_ATTEMPTS = 3
 TIME_WINDOW = 3600 #1 hour
 
 MIN_LENGTH = 10
