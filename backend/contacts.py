@@ -1,6 +1,9 @@
 from database import SessionLocal
 from models import ContactMessage
 from schema import ContactCreate, ContactReadUpdate, ReplyMessage
+from datetime import datetime, timedelta
+from fastapi import HTTPException
+from collections import defaultdict
 import resend
 from dotenv import load_dotenv
 import os
@@ -8,6 +11,31 @@ import os
 load_dotenv()
 resend.api_key = os.getenv("RESEND_API_KEY")
 
+contact_attemps = defaultdict(list)
+
+MAX_ATTEMPTS = 3
+TIME_WINDOW = 3600 #1 hour
+
+MIN_LENGTH = 10
+MAX_LENGTH = 1000
+
+def check_rate_limit(ip: str):
+    now = datetime.now()
+
+    valid_attempts = []
+
+    for timestamp in contact_attemps[ip]:
+        time_difference = now - timestamp
+
+        if time_difference < timedelta(seconds=TIME_WINDOW):
+            valid_attempts.append(timestamp)
+
+    contact_attemps[ip] = valid_attempts
+
+    if(len(contact_attemps[ip]) >= MAX_ATTEMPTS):
+        raise HTTPException(status_code=429, detail=f"Too many requests. Try again in {TIME_WINDOW // 60} minutes")
+    
+    contact_attemps[ip].append(now)
 
 def fetch_contacts():
     db = SessionLocal()
@@ -112,3 +140,9 @@ def reply(contact_id: int, message: ReplyMessage):
 
     db.close()
     return {"status": "Reply sent"}
+
+def message_length(message: str):
+    if len(message) < MIN_LENGTH:
+        raise HTTPException(status_code=422, detail=f"Message must have at least {MIN_LENGTH} characters")
+    if len(message) > MAX_LENGTH:
+        raise HTTPException(status_code=422, detail=f"Message must have a maximum of {MAX_LENGTH} characters")
