@@ -10,12 +10,18 @@
     <body>
         <h1>Admin Page</h1>
 
-        <select id="filter">
-            <option value="newest">Recent-Oldest</option>
-            <option value="oldest">Oldest-Recent</option>
-            <option value="alphabetic">A-Z</option>
-            <option value="not-read">Not read</option>
-        </select>
+        <div class="search-wrapper">
+            <input type="search" id="search" placeholder="Search">
+        </div>
+
+        <div class="filter-dropdown">
+            <select id="filter">
+                <option value="newest">Recent-Oldest</option>
+                <option value="oldest">Oldest-Recent</option>
+                <option value="alphabetic">A-Z</option>
+                <option value="not-read">Not read</option>
+            </select>
+        </div>
 
         <p id="status" class = "status hidden"></p>
 

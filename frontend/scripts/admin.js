@@ -1,4 +1,5 @@
 let cachedContacts = [];
+let contacts = [];
 let StatusTimeout;
 const token = localStorage.getItem("token");
 
@@ -140,7 +141,7 @@ function showStatus(message, type = "success"){
 }
 
 document.getElementById("filter").addEventListener("change", (e) => {
-    let sorted = [...cachedContacts] //makes a copy of the array the = would make them look to the same object
+    let sorted = [...contacts] //makes a copy of the array the = would make them look to the same object
 
     if(e.target.value == "newest"){
         sorted.sort((a, b) => b.id - a.id); // if > 0 then b comes before a
@@ -161,3 +162,15 @@ document.getElementById("filter").addEventListener("change", (e) => {
 document.addEventListener("DOMContentLoaded", () => {
     loadContacts();
 });
+ document.getElementById("search").addEventListener("input", (e) => {
+    contacts = [];
+    const value = e.target.value.toLowerCase();
+    console.log(value);
+
+
+    cachedContacts.forEach(contact => {
+        const isVisible = contact.name.toLowerCase().includes(value) || contact.email.toLowerCase().includes(value);
+        if (isVisible) contacts.push(contact);
+    })
+    renderContacts(contacts)
+ })
