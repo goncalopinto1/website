@@ -3,9 +3,40 @@ let contacts = [];
 let StatusTimeout;
 const token = localStorage.getItem("token");
 
+function normalize(value){
+    return value === "null" ? null : value;
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    await loadContacts();
+
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const filters = {
+        status: normalize(urlParams.get("status")),
+        dateFrom: normalize(urlParams.get("dateFrom")),
+        dateTo: normalize(urlParams.get("dateTo")),
+        order: normalize(urlParams.get("order")),
+        alphabetical: normalize(urlParams.get("alphabetical"))
+    };
+
+    const filteredContacts = filter(filters); 
+    renderContacts(filteredContacts);
+
+    const filterBtn = document.getElementById("filter");
+    if (!filterBtn) return;
+
+    filterBtn.addEventListener("click", () => {
+        console.log("aaaa");
+        window.location.href = "../pages/filters.html";
+    });
+});
+
+
 async function loadContacts(){
     if(!token){
         window.location.href = "../pages/admin-login.html";
+        return;
     } else {
         try {
             const res = await fetch('http://localhost:8000/contact', {
@@ -15,11 +46,11 @@ async function loadContacts(){
             if(!res.ok){
                 localStorage.removeItem("token");
                 window.location.href = "../pages/admin-login.html";
-            } else {
-                const contacts = await res.json()
-                cachedContacts = contacts;
-                renderContacts(cachedContacts)
-            }
+                return;
+            } 
+
+            cachedContacts = await res.json();
+
         } catch(err) {
             window.location.href = "../pages/admin-login.html";
         }
@@ -140,29 +171,56 @@ function showStatus(message, type = "success"){
     }, 3000);
 }
 
-document.getElementById("filter").addEventListener("change", (e) => {
-    let sorted = [...contacts] //makes a copy of the array the = would make them look to the same object
+export function filter(filterObject){
+    let sorted = [...cachedContacts];
 
-    if(e.target.value == "newest"){
-        sorted.sort((a, b) => b.id - a.id); // if > 0 then b comes before a
-    }
-    else if(e.target.value == "oldest"){
-        sorted.sort((a, b) => a.id - b.id);
-    }
-    else if(e.target.value == "alphabetic"){
-        sorted.sort((a, b) => a.name.localeCompare(b.name)); // A-Z
-    }
-    else if(e.target.value == "not-read"){
-        sorted = sorted.filter((elem) => !elem.is_read);
+    switch (filterObject.status){
+        case "read":
+            sorted = sorted.filter((elem) => !elem.is_read);
+            break;
+        case "unread":
+            sorted = sorted.filter((elem) => elem.is_read);
+            break;
+        default:
+            break;
     }
 
-    return renderContacts(sorted);
-});
+    switch (filterObject.order){
+        case "recent-oldest":
+            sorted.sort((a, b) => b.id - a.id);
+            break;
+        case "oldest-recent":
+            sorted.sort((a, b) => a.id - b.id);
+            break;
+        default:
+            break;
+    }
 
-document.addEventListener("DOMContentLoaded", () => {
-    loadContacts();
-});
- document.getElementById("search").addEventListener("input", (e) => {
+    if(filterObject.dateFrom != null && filterObject.dateTo != null){
+        const from = new Date(filterObject.dateFrom);
+        const to = new Date(filterObject.dateTo);
+
+        sorted = sorted.filter(contact => {
+            const ts = new Date(contact.timestamp);
+            return ts >= from && ts <= to;
+        });
+    }
+
+    switch(filterObject.alphabetical){
+        case "a-z":
+            sorted.sort((a,b) => a.name.localeCompare(b.name));
+            break;
+        case "z-a":
+            sorted.sort((a,b) => b.name.localeCompare(a.name));
+            break;
+        default:
+            break;
+    }
+
+    return sorted;
+}
+
+document.getElementById("search").addEventListener("input", (e) => {
     contacts = [];
     const value = e.target.value.toLowerCase();
     console.log(value);
@@ -172,5 +230,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const isVisible = contact.name.toLowerCase().includes(value) || contact.email.toLowerCase().includes(value);
         if (isVisible) contacts.push(contact);
     })
-    renderContacts(contacts)
- })
+    renderContacts(contacts);
+});
+

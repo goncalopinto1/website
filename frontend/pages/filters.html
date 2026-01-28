@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Gonçalo Pinto</title>
+        <link rel="stylesheet" href="../styles.css" />
+        <script type="module" src="../scripts/filters.js"></script>
+    </head>
+    <body>
+        <h1>Filters</h1>
+
+        <div class="status">
+            <h2>Status:</h2>
+            <label>
+                <input type="radio" id="read" name="status" value="read">
+                Read
+            </label> 
+
+            <label>
+                <input type="radio" id="unread" name="status" value="unread">
+                Unread
+            </label> 
+        </div>
+
+        <div class="order">
+            <h2>Order:</h2>
+            <label>
+                <input type="radio" id="recent-oldest" name="order" value="recent-oldest">
+                Recent-Oldest
+            </label> 
+
+            <label>
+                <input type="radio" id="oldest-recent" name="order" value="oldest-recent">
+                Oldest-Recent
+            </label> 
+        </div>
+
+        <div class="date-range">
+            <h2>Date Range:</h2>
+            <label>
+                <input type="date" id="date-from" name="date-from">
+                From:
+            </label> 
+
+            <label>
+                <input type="date" id="date-to" name="date-to">
+                To:
+            </label> 
+        </div>
+
+        <div class="Alphabetical">
+            <h2>Alphabetical:</h2>
+            <label>
+                <input type="radio" id="a-z" name="alphabetic" value="a-z">
+                A-Z
+            </label> 
+
+            <label>
+                <input type="radio" id="z-a" name="alphabetic" value="z-a">
+                Z-A
+            </label> 
+        </div>
+
+        <div class="filter-actions">
+            <button type="button" id="apply-filters">Apply filters</button>
+            <button type="button" id="clear-filters">Clear all</button>
+        </div>
+    </body>
+</html>
