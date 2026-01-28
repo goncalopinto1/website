@@ -29,3 +29,7 @@ html {
 .contact-card.read {
     color: darkgray
 }
+
+.hide {
+    display: none;
+}
