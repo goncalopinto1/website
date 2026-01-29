@@ -6,6 +6,28 @@ const filters = {
     alphabetical: null
 }
 
+const token = localStorage.getItem("token");
+
+document.addEventListener("DOMContentLoaded", async () => {
+    if(!token){
+        window.location.href = "../pages/admin-login.html";
+        return;
+    }
+
+    try{
+        const res = await fetch(`http://localhost:8000/contact`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if(!res.ok){
+            window.location.href = "../pages/admin-login.html";
+            return;
+        }
+    } catch(error){
+        window.location.href = "../pages/admin-login.html";
+    }
+})
+
 document.getElementById("apply-filters").addEventListener("click", () => {
     const selectedStatus = document.querySelector("input[name='status']:checked");
 
