@@ -1,0 +1,26 @@
+[
+    {
+    "id": 1,
+    "name": "Personal Website",
+    "description": "My personal website",
+    "url": "https://github.com/goncalopinto1/website",
+    "languages": ["Python", "FastAPI", "JWT", "SQLAlchemy", "HTML", "CSS", "JavaScript"],
+    "type": "Web Development"
+  },
+  {
+    "id": 2,
+    "name": "Crossy Road",
+    "description": " A retro-style terminal game developed in Java using MVC architecture and Design Patterns, featuring a robust test suite built with JUnit, Mockito, and Pitest.",
+    "url": "https://github.com/goncalopinto1/CrossyRoad",
+    "languages": ["Java"],
+    "type": "Game development"
+  },
+  {
+    "id": 3,
+    "name": "Prog-project",
+    "description": " A C++ project developed to practice Object-Oriented Programming (OOP) concepts. It includes multiple image transformations such as rotation (e.g. 90°), filters, and desaturation (grayscale conversion). The main focus was on building well-structured, reusable classes and working directly with pixel-level image data.",
+    "url": "https://github.com/goncalopinto1/Prog-project",
+    "languages": ["C++"],
+    "type": "backend"
+  }
+]
