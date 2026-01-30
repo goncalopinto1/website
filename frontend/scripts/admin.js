@@ -1,3 +1,4 @@
+import Chart from "https://cdn.jsdelivr.net/npm/chart.js/auto/+esm";
 let cachedContacts = [];
 let contacts = [];
 let StatusTimeout;
@@ -233,3 +234,85 @@ document.getElementById("search").addEventListener("input", (e) => {
     renderContacts(contacts);
 });
 
+
+function getLastMonths(count) {
+  const months = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+
+  const result = [];
+  const now = new Date();
+
+  for (let i = count - 1; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    result.push(months[d.getMonth()]);
+  }
+
+  return result;
+}
+
+const labels = getLastMonths(7);
+
+
+const mess_week = document.getElementById("messages-week");
+
+const data1 = {
+  labels: labels,
+  datasets: [{
+    label: 'Messages per Month',
+    data: [65, 59, 80, 81, 56, 55, 40],
+    fill: false,
+    tension: 0.1,
+    borderColor:'rgb(4, 5, 63)',
+    backgroundColor:'rgb(22, 23, 105)',
+    pointRadius: 3,
+  }]
+};
+
+new Chart(mess_week, {
+    type: "line",
+    data: data1,
+});
+
+
+const read_unread = document.getElementById("read-unread");
+
+const data2 = {
+  labels: labels,
+  datasets: [{
+    label: 'Messages per Month',
+    data: [65, 59, 80, 81, 56, 55, 40],
+    fill: false,
+    tension: 0.1,
+    borderColor:'rgb(4, 5, 63)',
+    backgroundColor:'rgb(22, 23, 105)',
+    pointRadius: 3,
+  }]
+};
+
+new Chart(read_unread, {
+    type: "line",
+    data: data2,
+});
+
+
+const mess_day = document.getElementById("messages-day");
+
+const data3 = {
+  labels: labels,
+  datasets: [{
+    label: 'Messages per Month',
+    data: [65, 59, 80, 81, 56, 55, 40],
+    fill: false,
+    tension: 0.1,
+    borderColor:'rgb(4, 5, 63)',
+    backgroundColor:'rgb(22, 23, 105)',
+    pointRadius: 3,
+  }]
+};
+
+new Chart(mess_day, {
+    type: "line",
+    data: data3,
+});
