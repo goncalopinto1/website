@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from fastapi import HTTPException
 from collections import defaultdict
 import resend
+from schema import ContactOut
 from dotenv import load_dotenv
 import os
 
@@ -37,11 +38,16 @@ def check_rate_limit(ip: str):
     
     contact_attemps[ip].append(now)
 
+# contacts.py
 def fetch_contacts():
     db = SessionLocal()
-    contacts = db.query(ContactMessage).all() #returns a list with all objects from the table
-    db.close()
-    return contacts
+    try:
+        contacts = db.query(ContactMessage).all()
+        
+        result = [ContactOut.model_validate(c, from_attributes=True) for c in contacts]
+        return result
+    finally:
+        db.close()
 
 def create_contact_in_db(contact: ContactCreate):
     db = SessionLocal() #creates a session instace that i'll use to talk to the database

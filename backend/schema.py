@@ -1,4 +1,6 @@
+from typing import Optional
 from pydantic import BaseModel
+from datetime import datetime
 
 class Project(BaseModel):
     name: str
@@ -15,7 +17,8 @@ class ContactCreate(BaseModel):
 class ContactOut(ContactCreate):
     id: int
     is_read: int
-
+    timestamp: Optional[datetime] = None 
+    
     class Config:
         from_attributes = True
 

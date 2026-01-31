@@ -1,3 +1,8 @@
+import Chart from "https://cdn.jsdelivr.net/npm/chart.js/auto/+esm";
+import { getWeekKey } from "./helper-functions.js";
+import { groupContactsByWeek } from "./helper-functions.js";
+import { groupContactsByDayOfWeek } from "./helper-functions.js";
+
 let cachedContacts = [];
 let contacts = [];
 let StatusTimeout;
@@ -23,11 +28,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     const filteredContacts = filter(filters); 
     renderContacts(filteredContacts);
 
+    renderWeeklyChart();
+    buildReadUnreadChart();
+    buildMessagesPerDay();
+
     const filterBtn = document.getElementById("filter");
     if (!filterBtn) return;
 
     filterBtn.addEventListener("click", () => {
-        console.log("aaaa");
         window.location.href = "../pages/filters.html";
     });
 });
@@ -153,7 +161,8 @@ async function markAsRead(id){
             throw new Error("Failed to mark as read")
         } 
 
-        loadContacts();
+        await loadContacts();
+        renderContacts(cachedContacts)
     } catch(err){
         console.log(err);
     }
@@ -232,4 +241,91 @@ document.getElementById("search").addEventListener("input", (e) => {
     })
     renderContacts(contacts);
 });
+
+
+function renderWeeklyChart() {
+    const grouped = groupContactsByWeek(cachedContacts);
+
+    const allWeeks = Object.keys(grouped).sort();
+
+    const lastWeeks = allWeeks.slice(-7);
+
+    const data = lastWeeks.map(week => grouped[week]);
+
+    
+
+    new Chart(document.getElementById("messages-week"), {
+        type: "line",
+        data: {
+            labels: lastWeeks,
+            datasets: [{
+                label: "Contacts per week",
+                data: data,
+                borderColor: "rgb(22, 23, 105)",
+                backgroundColor: "rgba(37, 65, 206, 0.2)",
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+}
+
+
+function buildReadUnreadChart(){
+    const read_unread = document.getElementById("read-unread");
+
+    let read = 0;
+    let unread = 0;
+
+    cachedContacts.forEach(c => {
+        if(c.is_read == 0) unread++;
+        else read++;
+    })
+
+
+    const data2 = {
+        labels: ["Read", "Unread"],
+        datasets: [{
+            data: [read, unread],
+            backgroundColor: [
+                "rgb(237, 113, 24)",
+                "rgb(22, 23, 105)",
+            ]
+        }]
+    };
+
+    new Chart(read_unread, {
+        type: "pie",
+        data: data2,
+    });
+}
+
+function buildMessagesPerDay(){
+    const mess_day = document.getElementById("messages-day");
+
+    const grouped = groupContactsByDayOfWeek(cachedContacts);
+
+    const labels = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    const dataValues = labels.map(day => grouped[day] || 0);
+
+    const data3 = {
+    labels: labels,
+    datasets: [{
+        label: 'Messages per Day of Week',
+        data: dataValues,
+        fill: false,
+        borderColor:'rgb(4, 5, 63)',
+        backgroundColor:'rgb(22, 23, 105)',
+    }]
+    };
+
+    new Chart(mess_day, {
+        type: "bar",
+        data: data3,
+    });
+}
 
