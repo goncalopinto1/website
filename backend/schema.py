@@ -27,3 +27,23 @@ class ContactReadUpdate(BaseModel):
 
 class ReplyMessage(BaseModel):
     message: str
+
+class PostCreate(BaseModel):
+    title: str
+    content: str
+    published: bool = False
+
+class PostOut(BaseModel):
+    id: int
+    title: str
+    content: str
+    created_at: datetime
+    published: bool
+    
+    class Config:
+        from_attributes = True
+
+class PostUpdate(BaseModel):
+    title: str | None = None
+    content: str | None = None
+    published: bool | None = None
