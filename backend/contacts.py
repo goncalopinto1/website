@@ -88,7 +88,7 @@ def get_contact_by_id(contact_id: int):
 
     if not contact:
         db.close()
-        return {"error": "Contact not found"}
+        raise HTTPException(status_code=404, detail="Contact not found")
     
     db.close()
     return contact
@@ -100,7 +100,7 @@ def delete_contacts(contact_id: int):
 
     if not contact:
         db.close()
-        return {"error": "Contact not found"}
+        raise HTTPException(status_code=404, detail="Contact not found")
     
     db.delete(contact)
     db.commit()
@@ -115,7 +115,7 @@ def mark_read(contact_id: int, is_read: ContactReadUpdate):
 
     if not contact:
         db.close()
-        return {"error": "Contact not found"}
+        raise HTTPException(status_code=404, detail="Contact not found")
     
     contact.is_read = is_read.is_read
 
@@ -131,7 +131,7 @@ def reply(contact_id: int, message: ReplyMessage):
 
     if not contact:
         db.close()
-        return {"error": "Contact not found"}
+        raise HTTPException(status_code=404, detail="Contact not found")
     
     contact_email = contact.email
 
