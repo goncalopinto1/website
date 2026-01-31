@@ -33,3 +33,10 @@ html {
 .hide {
     display: none;
 }
+
+.charts {
+    width: 100%;
+    max-width: 600px;
+    height: 300px;
+    position: relative;
+}

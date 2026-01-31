@@ -23,11 +23,9 @@ app.add_middleware(
 
 router = APIRouter(tags=["Authentication"])
 
-# Depends tells that the function inside must be performed before the endpoint one
 @app.get("/contact", response_model=list[ContactOut])
 def get_contact(current_user: str = Depends(verify_token)):
-    contacts = fetch_contacts()
-    return[ContactOut.model_validate(c, from_attributes=True) for c in contacts]
+    return fetch_contacts()
 
 @app.get("/contact/{contact_id}")
 def get_contact(contact_id: int, current_user: str = Depends(verify_token)):
