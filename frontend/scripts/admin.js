@@ -1,4 +1,8 @@
 import Chart from "https://cdn.jsdelivr.net/npm/chart.js/auto/+esm";
+import { getWeekKey } from "./helper-functions.js";
+import { groupContactsByWeek } from "./helper-functions.js";
+import { groupContactsByDayOfWeek } from "./helper-functions.js";
+
 let cachedContacts = [];
 let contacts = [];
 let StatusTimeout;
@@ -157,7 +161,8 @@ async function markAsRead(id){
             throw new Error("Failed to mark as read")
         } 
 
-        loadContacts();
+        await loadContacts();
+        renderContacts(cachedContacts)
     } catch(err){
         console.log(err);
     }
@@ -237,43 +242,6 @@ document.getElementById("search").addEventListener("input", (e) => {
     renderContacts(contacts);
 });
 
-function getWeekKey(date){
-    const firstDay = new Date(date.getFullYear(), 0, 1);
-    const diff = (date - firstDay) / 86400000;
-    const week = Math.ceil((diff + firstDay.getDay() +1) / 7);
-    return `${date.getFullYear()}-W${week}`;
-}
-
-function groupContactsByWeek(cachedContacts){
-    const counts = {};
-
-    cachedContacts.forEach(c => {
-        const date = new Date(c.timestamp);
-        const weekKey = getWeekKey(date);
-        counts[weekKey] = (counts[weekKey] || 0) + 1;
-    });
-
-    return counts;
-}
-
-
-
-
-function getLastNWeeks(n) {
-    const weeks = [];
-    const now = new Date();
-
-    for (let i = n - 1; i >= 0; i--) {
-        const d = new Date(now);
-        d.setDate(d.getDate() - i * 7);
-
-        const key = getWeekKey(d);
-        weeks.push(key);
-    }
-
-    return weeks;
-}
-
 
 function renderWeeklyChart() {
     const grouped = groupContactsByWeek(cachedContacts);
@@ -293,8 +261,8 @@ function renderWeeklyChart() {
             datasets: [{
                 label: "Contacts per week",
                 data: data,
-                borderColor: "rgba(230, 23, 161, 1)",
-                backgroundColor: "rgba(230, 23, 161, 0.2)",
+                borderColor: "rgb(22, 23, 105)",
+                backgroundColor: "rgba(37, 65, 206, 0.2)",
                 fill: true
             }]
         },
@@ -313,8 +281,8 @@ function buildReadUnreadChart(){
     let unread = 0;
 
     cachedContacts.forEach(c => {
-        if(c.is_read == 0) read++;
-        else unread++;
+        if(c.is_read == 0) unread++;
+        else read++;
     })
 
 
@@ -323,8 +291,8 @@ function buildReadUnreadChart(){
         datasets: [{
             data: [read, unread],
             backgroundColor: [
+                "rgb(237, 113, 24)",
                 "rgb(22, 23, 105)",
-                "rgb(230, 23, 161)"
             ]
         }]
     };
@@ -333,31 +301,6 @@ function buildReadUnreadChart(){
         type: "pie",
         data: data2,
     });
-}
-
-function groupContactsByDayOfWeek(cachedContacts){
-    const counts = {
-        "Sunday": 0,
-        "Monday": 0,
-        "Tuesday": 0,
-        "Wednesday": 0,
-        "Thursday": 0,
-        "Friday": 0,
-        "Saturday": 0
-    };
-
-    cachedContacts.forEach(c => {
-        const date = new Date(c.timestamp);
-
-        const dayIndex = date.getDay();
-
-        const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        const dayName = dayNames[dayIndex];
-
-        counts[dayName]++;
-    });
-
-    return counts;
 }
 
 function buildMessagesPerDay(){
