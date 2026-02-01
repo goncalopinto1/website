@@ -1,3 +1,5 @@
+import { showToast } from "./helper-functions.js";
+
 const filters = {
     status: null,
     order: null,
@@ -44,7 +46,7 @@ document.getElementById("apply-filters").addEventListener("click", () => {
     filters.dateTo = dateTo;
 
     if (dateFrom && dateTo && new Date(dateFrom) > new Date(dateTo)) {
-        alert("Invalid date interval");
+        showToast("Invalid date interval", "error");
         return;
     }
 

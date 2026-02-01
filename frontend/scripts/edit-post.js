@@ -1,3 +1,5 @@
+import { showToast } from "./helper-functions.js";
+
 const token = localStorage.getItem("token");
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -5,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const id = params.get("post_id");
 
     if(!id){
-        alert("Invalid post id");
+        console.log("Invalid post id");
         window.location.href = "../pages/admin.html";
         return;
     }
@@ -46,6 +48,9 @@ async function EditPost(id){
     document.getElementById("edit-post").addEventListener("submit", async (e) => {
         e.preventDefault();
 
+        const ok = confirm("Are you sure you want to keep this changes?")
+        if(!ok) return 
+
         const data = {
             title: document.getElementById("title").value,
             content: document.getElementById("content").value,
@@ -64,7 +69,7 @@ async function EditPost(id){
 
         if(res.status === 404){
             const error = await res.json();
-            alert(error.detail);
+            showToast(error.detail, "error");
             return;
         }
 

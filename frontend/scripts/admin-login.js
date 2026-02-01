@@ -1,3 +1,4 @@
+import { showToast } from "./helper-functions.js";
 const form = document.getElementById("admin-login");
 console.log("Form found:", form);
 
@@ -35,11 +36,12 @@ if (form) {
                 
                 window.location.href = "../pages/admin.html";
             } else {
-                alert("Wrong email or password");
+                showToast("Wrong email or password ❌", "error");
             }
         } catch (error) {
             console.log("Error:", error);
-            alert("Something went wrong");
+            showToast("Something went wrong ❌", "error");
+            return;
         }
     });
 } else {

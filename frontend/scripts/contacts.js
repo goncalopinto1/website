@@ -1,3 +1,5 @@
+import { showToast } from "./helper-functions.js";
+
 export function sendContacts(){
     let StatusTimeout;
 
@@ -12,6 +14,9 @@ export function sendContacts(){
     form.addEventListener("submit", async (e) => {
         console.log("🚀 Form submetido!");
         e.preventDefault();
+
+        const ok = confirm("Are you sure you want to send this contact message?")
+        if(!ok) return;
         
         const data = {
             name: document.getElementById("name").value,
@@ -40,11 +45,11 @@ export function sendContacts(){
                 console.log("✅ Form resetado");
             } else if(res.status === 429) {
                 const error = await res.json();
-                alert(error.detail);
+                showToast(error.detail, "error");
                 return;
             } else if (res.status === 422){
                 const error = await res.json();
-                alert(error.detail);
+                showToast(error.detail, "error");
                 return;
             } else {
                 console.log("❌ Erro na resposta");

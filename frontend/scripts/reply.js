@@ -1,3 +1,5 @@
+import { showToast } from "./helper-functions.js";
+
 let StatusTimeout;
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -33,7 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const contact = await res.json();
 
         if(!contact){
-            alert("Contact not found");
+            showToast("Contact not found ❌", "error");
             window.location.href = "../pages/admin.html";
             return;
         }
@@ -43,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     } catch (error){
         console.log("❌ Error:", error);
-        alert("Error loading content");
+        showToast("Error loading content ❌", "error");
     }
 });
 
@@ -83,7 +85,7 @@ document.getElementById("reply-form").addEventListener("submit", async (e) => {
 
         if(!res.ok){
             console.log("❌ Fetch error");
-            alert("Error sending reply");
+            showToast("Error sending reply ❌", "error");
             return;
         }
 

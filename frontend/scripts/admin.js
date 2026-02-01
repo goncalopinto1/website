@@ -147,7 +147,8 @@ async function deleteContact(id){
         }
 
         showStatus("Contact deleted!", "success");
-        loadContacts(); //refresh the UI
+        await loadContacts();
+        renderContacts(cachedContacts); //refresh the UI
     } catch(err){
         showStatus(err.message, "error")
         console.log(err);
@@ -310,6 +311,9 @@ function renderPosts(posts){
 }
 
 async function deletePost(id){
+    const ok = confirm("Are you sure you want to delete this Post?")
+    if(!ok) return;
+
     const res = await fetch(`http://localhost:8000/post/${id}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${token}` }
