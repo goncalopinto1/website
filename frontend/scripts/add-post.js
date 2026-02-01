@@ -1,3 +1,4 @@
+import { showToast } from "./helper-functions.js";
 const token = localStorage.getItem("token");
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,6 +12,9 @@ async function CreatePost(){
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
+
+        const ok = confirm("Are you sure you want to send this Post?")
+        if(!ok) return;
 
         const data = {
             title:  document.getElementById("title").value,
@@ -28,7 +32,7 @@ async function CreatePost(){
         });
 
         if(!res.ok){
-            alert("Error creating post");
+            showToast("Error creating post ❌", "error");
             return;
         }
 
