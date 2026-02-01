@@ -290,10 +290,13 @@ function renderPosts(posts){
 
         const date = new Date(p.created_at);
 
+        const rawContent = p.content;
+        const safeHTML = DOMPurify.sanitize(marked.parse(rawContent));
+
         card.innerHTML = `
             <h3><strong>Title: </strong>${p.title}</h3>
-            <p><strong>Content: </strong>${p.content}</p>
-            <p><strong>Date: </strong>${date}</p>
+            <div class="post-content">${safeHTML}</div>
+            <p><strong>Date: </strong>${date.toLocaleDateString()}</p>
             <p><strong>Is published?: </strong>${p.published}</p>
         `
         const deleteButton = document.createElement("button");

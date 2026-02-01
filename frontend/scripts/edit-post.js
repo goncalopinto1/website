@@ -33,10 +33,12 @@ async function EditPost(id){
 
     const card = document.createElement("div");
 
+    const rawContent = post.content;
+    const safeHTML = DOMPurify.sanitize(marked.parse(rawContent));
 
     card.innerHTML = `
         <h3><strong>Title:</strong>${post.title}</h3>
-        <p><strong>Content:</strong>${post.content}</p>
+        <div class="post-content">${safeHTML}</div>
     `
 
     container.appendChild(card);

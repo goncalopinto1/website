@@ -42,10 +42,13 @@ function renderPosts(posts){
         
         const date = new Date(p.created_at);
 
+        const rawContent = p.content;
+        const safeHTML = DOMPurify.sanitize(marked.parse(rawContent));
+
         card.innerHTML = `
             <h3>${p.title}</h3>
-            <p>${p.content}</p>
-            <p>${date}</p>
+            <div class="post-content">${safeHTML}</div>
+            <p>${date.toLocaleDateString()}</p>
             <hr>
         `
         
