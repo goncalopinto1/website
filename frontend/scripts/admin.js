@@ -1,5 +1,4 @@
 import Chart from "https://cdn.jsdelivr.net/npm/chart.js/auto/+esm";
-import { getWeekKey } from "./helper-functions.js";
 import { groupContactsByWeek } from "./helper-functions.js";
 import { groupContactsByDayOfWeek } from "./helper-functions.js";
 
@@ -28,6 +27,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const filteredContacts = filter(filters); 
     renderContacts(filteredContacts);
 
+    const posts = await loadPosts();
+    renderPosts(posts);
+
     renderWeeklyChart();
     buildReadUnreadChart();
     buildMessagesPerDay();
@@ -38,6 +40,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     filterBtn.addEventListener("click", () => {
         window.location.href = "../pages/filters.html";
     });
+
+    const addButton = document.getElementById("add-button");
+
+    addButton.addEventListener("click", () => {
+        window.location.href = "../pages/add-post.html";
+    })
 });
 
 
@@ -242,6 +250,82 @@ document.getElementById("search").addEventListener("input", (e) => {
     renderContacts(contacts);
 });
 
+async function loadPosts(){
+    const res = await fetch("http://localhost:8000/post");
+
+    if(!res.ok){
+        console.log("Error fetching the posts");
+        return;
+    }
+
+    const posts = await res.json();
+
+    return posts;
+}
+
+function renderPosts(posts){
+    const container = document.getElementById("posts");
+
+    container.innerHTML = "";
+
+    if(!posts || posts.length === 0){
+        container.innerHTML = `<p>No posts yet</p>`;
+        return;
+    }
+
+    posts.forEach(p => {
+        const card = document.createElement("div");
+
+        const date = new Date(p.created_at);
+
+        card.innerHTML = `
+            <h3>${p.title}</h3>
+            <p>${p.content}</p>
+            <p>${date}</p>
+            <p>${published}</p>
+        `
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete-btn");
+        deleteButton.type = "button";
+        deleteButton.textContent = "Delete Posts";
+
+        deleteButton.addEventListener("click", () => {
+            deletePost(p.id);
+        });
+
+        const editButton = document.createElement("button");
+        editButton.classList.add("edit-btn");
+        editButton.type = "button";
+        editButton.textContent = "Edit Post";
+
+        editButton.addEventListener("click", () => {
+            window.location.href = `../pages/edit-post.html?post_id=${p.id}`;
+        });
+
+        card.appendChild(editButton);
+        card.appendChild(deleteButton);
+        card.appendChild(document.createElement("hr"));
+        container.appendChild(card);
+    });
+}
+
+async function deletePost(id){
+    const res = await fetch(`http://localhost:8000/post/${id}`, {
+        method: "DELETE",
+        header: { "Authorization": `Bearer ${token}` }
+    });
+
+    if(!res.ok){
+        throw new Error("Failed to delte post");
+    }
+
+    const posts = loadContacts();
+    renderContacts(posts);
+}
+
+function editPost(id){
+
+}
 
 function renderWeeklyChart() {
     const grouped = groupContactsByWeek(cachedContacts);

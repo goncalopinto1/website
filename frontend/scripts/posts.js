@@ -29,26 +29,13 @@ async function fetchPosts(){
 }
 
 function renderPosts(posts){
-    if(!posts || posts.length === 0){
-        const container = document.getElementById("my-posts");
-
-        const card = document.createElement("div");
-        
-        card.innerHTML = `
-            <p>No posts for now</p>
-        `
-
-        container.appendChild(card);
-        return;
-    }
-
     const container = document.getElementById("my-posts");
 
     if(!container) return;
 
     container.innerHTML = "";
 
-    recentPosts.forEach(p => {
+    posts.forEach(p => {
         const card = document.createElement("div");
         
         const date = new Date(p.created_at);

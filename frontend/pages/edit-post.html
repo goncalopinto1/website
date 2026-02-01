@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Gonçalo Pinto</title>
+        <link rel="stylesheet" href="../styles.css" />
+        <script type="module" src="../scripts/edit-post.js"></script>
+    </head>
+    <body>
+        <h1>Edit Post</h1>
+
+        <form id="edit-post">
+            <input id="title" type="text" placeholder="title" required/>
+            <textarea id="content" type="text" placeholder="content" required/>
+
+            <label>
+                <input type="checkbox" name="published" id="published" value="published" />
+                Publish this Post
+            </label>
+            
+            <button id="edit" type="submit">Edit Post</button>
+        </form>
+
+        <p id="status" class="status hidden"></p>
+    </body>
+</html>
