@@ -34,7 +34,7 @@ def create_posts(post: PostCreate):
     db.close()
 
     try:
-        resend.Email.send({
+        resend.Emails.send({
             "from": "onboarding@resend.dev",
             "to": admin_email,
             "subject": "New Post has been created!",
@@ -84,3 +84,17 @@ def update_posts(post_id: int, update: PostUpdate):
     db.refresh(post)
     db.close()
     return {"status": "Post updated"}
+
+def get_post_by_id(post_id: int):
+    db = SessionLocal()
+
+    post = db.query(Posts).filter(Posts.id == post_id).first()
+
+    if not post:
+        db.close()
+        raise HTTPException(status_code=404, detail="Post not found")
+
+
+    db.close()
+    return post
+

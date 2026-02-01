@@ -9,7 +9,7 @@ from database import engine, Base
 from admin_login import admin_login
 from verify_token import verify_token
 from email_validation import email_validator_address
-from posts import get_all_posts, create_posts, delete_posts, update_posts
+from posts import get_all_posts, create_posts, delete_posts, update_posts, get_post_by_id
 
 Base.metadata.create_all(bind=engine)
 
@@ -68,6 +68,10 @@ def reply_to_message(contact_id: int, message: ReplyMessage, current_user: str =
 @app.get("/post", response_model=list[PostOut])
 def get_posts():
     return get_all_posts()
+
+@app.get("/post/{post_id}", response_model=PostOut)
+def get_posts(post_id: int):
+    return get_post_by_id(post_id)
 
 @app.post("/post")
 def create_post(post: PostCreate, user_credentials: str = Depends(verify_token)):
