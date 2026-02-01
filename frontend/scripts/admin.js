@@ -3,16 +3,24 @@ import { groupContactsByWeek } from "./helper-functions.js";
 import { groupContactsByDayOfWeek } from "./helper-functions.js";
 
 let cachedContacts = [];
-let contacts = [];
 let StatusTimeout;
+let autoRefreshInterval;
 const token = localStorage.getItem("token");
 
 function normalize(value){
     return value === "null" ? null : value;
 }
 
+function startAutoRefresh(){
+    autoRefreshInterval = setInterval(() => {
+        console.log("🔄 Auto-refreshing contacts...");
+        loadContacts()
+    }, 30000);
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
     await loadContacts();
+    startAutoRefresh();
 
     const urlParams = new URLSearchParams(window.location.search);
 
@@ -48,6 +56,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
 });
 
+window.addEventListener("beforeunload", () => {
+    clearInterval(autoRefreshInterval);
+});
 
 async function loadContacts(){
     if(!token){
@@ -239,7 +250,7 @@ export function filter(filterObject){
 }
 
 document.getElementById("search").addEventListener("input", (e) => {
-    contacts = [];
+    let contacts = [];
     const value = e.target.value.toLowerCase();
     console.log(value);
 
