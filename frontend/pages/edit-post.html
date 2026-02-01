@@ -10,9 +10,11 @@
     <body>
         <h1>Edit Post</h1>
 
+        <div id="atual-post"></div>
+
         <form id="edit-post">
             <input id="title" type="text" placeholder="title" required/>
-            <textarea id="content" type="text" placeholder="content" required/>
+            <textarea id="content" type="text" placeholder="content" required></textarea>
 
             <label>
                 <input type="checkbox" name="published" id="published" value="published" />
@@ -21,7 +23,5 @@
             
             <button id="edit" type="submit">Edit Post</button>
         </form>
-
-        <p id="status" class="status hidden"></p>
     </body>
 </html>

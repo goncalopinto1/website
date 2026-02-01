@@ -69,7 +69,7 @@ def reply_to_message(contact_id: int, message: ReplyMessage, current_user: str =
 def get_posts():
     return get_all_posts()
 
-@app.get("/post/{post_id}", response_model=list[PostOut])
+@app.get("/post/{post_id}", response_model=PostOut)
 def get_posts(post_id: int):
     return get_post_by_id(post_id)
 

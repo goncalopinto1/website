@@ -34,7 +34,7 @@ def create_posts(post: PostCreate):
     db.close()
 
     try:
-        resend.Email.send({
+        resend.Emails.send({
             "from": "onboarding@resend.dev",
             "to": admin_email,
             "subject": "New Post has been created!",

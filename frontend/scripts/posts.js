@@ -1,6 +1,8 @@
 export async function initPosts(){
-    const posts = await fetchPosts();
-
+    const allPosts = await fetchPosts();
+    
+    const posts = allPosts.filter(p => p.published);
+    
     const container = document.getElementById("my-posts");
     if (!container) return;
 
@@ -44,6 +46,7 @@ function renderPosts(posts){
             <h3>${p.title}</h3>
             <p>${p.content}</p>
             <p>${date}</p>
+            <hr>
         `
         
         container.appendChild(card);

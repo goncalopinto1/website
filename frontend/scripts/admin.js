@@ -279,15 +279,15 @@ function renderPosts(posts){
         const date = new Date(p.created_at);
 
         card.innerHTML = `
-            <h3>${p.title}</h3>
-            <p>${p.content}</p>
-            <p>${date}</p>
-            <p>${published}</p>
+            <h3><strong>Title: </strong>${p.title}</h3>
+            <p><strong>Content: </strong>${p.content}</p>
+            <p><strong>Date: </strong>${date}</p>
+            <p><strong>Is published?: </strong>${p.published}</p>
         `
         const deleteButton = document.createElement("button");
         deleteButton.classList.add("delete-btn");
         deleteButton.type = "button";
-        deleteButton.textContent = "Delete Posts";
+        deleteButton.textContent = "Delete Post";
 
         deleteButton.addEventListener("click", () => {
             deletePost(p.id);
@@ -312,20 +312,17 @@ function renderPosts(posts){
 async function deletePost(id){
     const res = await fetch(`http://localhost:8000/post/${id}`, {
         method: "DELETE",
-        header: { "Authorization": `Bearer ${token}` }
+        headers: { "Authorization": `Bearer ${token}` }
     });
 
     if(!res.ok){
-        throw new Error("Failed to delte post");
+        throw new Error("Failed to delete post");
     }
 
-    const posts = loadContacts();
-    renderContacts(posts);
+    const posts = await loadPosts();
+    renderPosts(posts);
 }
 
-function editPost(id){
-
-}
 
 function renderWeeklyChart() {
     const grouped = groupContactsByWeek(cachedContacts);
