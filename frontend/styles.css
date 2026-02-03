@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 html {
     scroll-behavior: smooth;
+}
+
+body {
+    background-color: #440000;
+    margin: 0; /* Remove margens padrão */
 }
 
 .status {
@@ -61,4 +67,253 @@ html {
 
 .toast.error {
     background: #dc3545;
+}
+
+.navbar.options{
+    color: #fff;
+
+    text-align: center;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 20px */
+    letter-spacing: 0.4px;
+    text-decoration: none;
+}
+
+.navbar.logo {
+    width: 36.166px;
+    height: 27.002px;
+}
+
+.home-page.title {
+    color: #FFF;
+
+    text-align: center;
+    font-family: Poppins;
+    font-size: 80px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 80px */
+    letter-spacing: 1.6px;
+}
+
+.home-page.text {
+    width: 545px;
+    height: 62px;
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 20px */
+    letter-spacing: 0.4px;
+}
+
+.home-page.image {
+    width: 385px;
+    height: 480px;
+    aspect-ratio: 77/96;
+    border-radius: 35px;
+}
+
+.personal.projects {
+    color: #FFF;
+
+    text-align: center;
+    font-family: Poppins;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 60px */
+    letter-spacing: 1.2px;
+}
+
+.project.title{
+    text-align: center;
+    font-family: Poppins;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 50px */
+    letter-spacing: 1px;
+
+    background: linear-gradient(90deg, #FF9500 0.19%, #C70000 99.81%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.project.description{
+    color: rgba(255, 255, 255, 0.80);
+
+    font-family: Poppins;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 23px */
+    letter-spacing: 0.46px;
+
+    width: 421px;
+    height: 109px;
+}
+
+.project.languages {
+    color: rgba(255, 255, 255, 0.80);
+
+    text-align: right;
+    font-family: Poppins;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 23px */
+    letter-spacing: 0.46px;
+}
+
+.project.link {
+    color: rgba(255, 255, 255, 0.80);
+
+    text-align: right;
+    font-family: Poppins;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 23px */
+    letter-spacing: 0.46px;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+}
+
+.project.images{
+    width: 827px;
+    height: 425px;
+    aspect-ratio: 72/37;
+    border-radius: 38px;
+}
+
+.icons {
+    width: 64px;
+    height: 64px;
+}
+
+.post.title {
+    text-align: center;
+    font-family: Poppins;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 50px */
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #246E09 0.19%, #000368 99.81%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.post.content {
+    width: 679px;
+    height: 78px;
+    color: rgba(255, 255, 255, 0.80);
+    font-family: Poppins;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 23px */
+    letter-spacing: 0.46px;
+}
+
+.post.image {
+    width: 504px;
+    height: 457px;
+    aspect-ratio: 75/68;
+    border-radius: 50px;
+}
+
+.feedback.title {
+    color: #FFF;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 60px */
+    letter-spacing: 1.2px;
+}
+
+.feedback.description {
+    width: 995px;
+    height: 67px;
+    color: rgba(255, 255, 255, 0.80);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 23px */
+    letter-spacing: 0.46px;
+}
+
+.feedback.image {
+    width: 504px;
+    height: 457px;
+    aspect-ratio: 75/68;
+    border-radius: 50px;
+}
+
+.form.email {
+    width: 975px;
+    height: 78px;
+    border-radius: 41px;
+    border: 1px solid #412C45;
+    background: linear-gradient(303deg, rgba(23, 19, 22, 0.35) 30.08%, rgba(53, 1, 39, 0.50) 69.92%);
+}
+
+.form.message {
+    width: 975px;
+    height: 267px;
+    border-radius: 41px;
+    border: 1px solid #412C45;
+    background: linear-gradient(303deg, rgba(23, 19, 22, 0.35) 30.08%, rgba(53, 1, 39, 0.50) 69.92%);
+}
+
+.form.text {
+    color: rgba(255, 255, 255, 0.30);
+    font-family: Poppins;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 23px */
+    letter-spacing: 0.46px;
+}
+
+.contacts.title {
+    color: #FFF;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 40px */
+    letter-spacing: 0.8px;
+}
+
+.contacts.text {
+    color: rgba(255, 255, 255, 0.80);
+    text-align: right;
+    font-family: Poppins;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 23px */
+    letter-spacing: 0.46px;
+}
+
+.contacts.logo {
+    width: 150.999px;
+    height: 112.723px;
 }
