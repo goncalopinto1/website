@@ -14,64 +14,81 @@
     </head>
     <body>
         <!-- NAVBAR -->
-        <nav>
-            <ul>
-                <a class="navbar options" href="#about">About me</a>
-                <a class="navbar options" href="#projects">My Projects</a>
-                <a class="navbar options" href="#Posts">Posts</a>
-                <a class="navbar options" href="#Contacts">Give Feedback</a>
-                <a class="navbar options" href="#footer">My Socials</a>
-            </ul>
+        <nav class="navbar">
+            <img class="navbar logo" src="../../docs/images/Logo.png" alt="Logo">
+            <a class="navbar options" href="#about">About me</a>
+            <a class="navbar options" href="#projects">Projects</a>
+            <a class="navbar options" href="#posts">Posts</a>
+            <a class="navbar options" href="#contacts">Give Feedback</a>
+            <a class="navbar options" href="#footer">Contacts</a>
         </nav>
 
         <!-- ABOUT -->
-        <section id="about">
-            <h1>About me</h1>
-            <p>My name is Gonçalo, I am a 2nd year software engineer sutent at FEUP</p>
+        <section class="home-page-content" id="about">
+            <div>
+                <h1 class="home-page title">Hey!</h1>
+                <p class="home-page text">
+                20-year-old software engineer at FEUP, passionate about learning and building cool stuff.
+                </p>
+                <p class="home-page text">Based in Porto, Portugal 🇵🇹</p>
+            </div>
+
+            <div class="home-page image">
+                <img src="../../docs/images/about-me.png" alt="Profile image">
+            </div>
         </section>
 
         
         <!-- PROJECTS -->
         <section id="projects">
-            <h1>Personal Projects</h1>
-
-            <div class="search-wrapper">
-                <input type="search" id="search" placeholder="Search by technologies">
-            </div>
+            <h1 class="personal projects">Personal Projects</h1>
 
             <div id="my-projects"></div>
         </section>
 
         <!--POSTS-->
         <section id="posts">
-            <h1>Posts</h1>
-
             <div id="my-posts"></div>
         </section>
 
         <!-- CONTACTS -->
         <section id="contacts">
-            <h1>Send me a Message</h1>
+            <h1 class="feedback title">Give me Feedback</h1>
 
-            <p>Give me feedbak using this form</p>
+            <p class="feedback description">Found something to improve or just want to share a thought? This is the place. your feedback is always welcome.</p>
 
             <form id="contact-form">
-                <input type="text" id="name" placeholder="Name" required />
-                <input type="email" id="email" placeholder="Email" required />
-                <textarea id="message" placeholder="Leave here your message" required></textarea>
-                <button type="submit">Send</button>
+                <input class="form name" type="text" id="name" placeholder="Name" required />
+                <input class="form email" type="email" id="email" placeholder="Email" required />
+                <textarea class="form message" id="message" placeholder="Leave here your message" required></textarea>
+                <button class="submit contact" type="submit">Send</button>
             </form>
 
             <p id="status" class="status hidden"></p>
         </section>
 
         <!-- FOOTER -->
-        <section id="footer">
-            <h1>My socials</h1>
+        <hr class="footer-divider">
 
-            <a href="https://www.linkedin.com/in/gon%C3%A7alo-lu%C3%ADs-sousa-pinto-ab67902ab?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bl6hG%2BnYQRXePiQvaPVeMfA%3D%3D"><strong>LinkedIn</strong></a>
-            <a href="https://github.com/goncalopinto1"><strong>GitHub</strong></a>
-            <p><strong>Email: </strong>goncalo.luis.pinto@gmail.com</p>
+        <section id="footer">
+            <h1 class="contacts title">My Contacts</h1>
+            
+            <div class="contact-item">
+                <img class="contacts logo" src="../../docs/images/github logo.png" alt="GitHub">
+                <a class="contacts text" href="https://github.com/goncalopinto1"><strong>GitHub</strong></a>
+            </div>
+            
+            <div class="contact-item">
+                <img class="contacts logo" src="../../docs/images/email.png" alt="Email">
+                <p class="contacts text"><strong>goncalo.luis.pinto@gmail.com</strong></p>
+            </div>
+            
+            <div class="contact-item">
+                <img class="contacts logo" src="../../docs/images/linkedin logo .png" alt="LinkedIn">
+                <a class="contacts text" href="https://www.linkedin.com/in/gon%C3%A7alo-lu%C3%ADs-sousa-pinto-ab67902ab"><strong>LinkedIn</strong></a>
+            </div>
+            
+            <img class="contacts personal" src="../../docs/images/Logo.png" alt="Logo GP">
         </section>
 
     </body>

@@ -55,7 +55,7 @@ function render_projects(projects) {
         });
 }
 
-document.getElementById("search").addEventListener("input", (e) => {
+/* document.getElementById("search").addEventListener("input", (e) => {
     let projects = [];
     const value = e.target.value.toLowerCase();
 
@@ -72,3 +72,4 @@ document.getElementById("search").addEventListener("input", (e) => {
     
     render_projects(projects);
 })
+    */
