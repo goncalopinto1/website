@@ -85,7 +85,7 @@ async function loadContacts(){
 }
 
 function renderContacts(cachedContacts) {
-    const container = document.getElementById("contacts");
+    const container = document.getElementById("contacts-admin");
     container.innerHTML = "";
 
     if (cachedContacts.length == 0){
@@ -276,7 +276,7 @@ async function loadPosts(){
 }
 
 function renderPosts(posts){
-    const container = document.getElementById("posts");
+    const container = document.getElementById("posts-admin");
 
     container.innerHTML = "";
 
