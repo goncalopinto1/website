@@ -30,28 +30,29 @@ async function fetchPosts(){
     return posts;
 }
 
-function renderPosts(posts){
+function renderPosts(posts) {
     const container = document.getElementById("my-posts");
-
     if(!container) return;
-
+    
     container.innerHTML = "";
-
-    posts.forEach(p => {
-        const card = document.createElement("div");
+    
+    posts.forEach((p) => {
+        const postItem = document.createElement("div");
+        postItem.className = "post-item";
         
-        const date = new Date(p.created_at);
-
+        const title = document.createElement("h2");
+        title.className = "post title";
+        title.textContent = p.title;
+        
+        const content = document.createElement("div");
+        content.className = "post content";
         const rawContent = p.content;
         const safeHTML = DOMPurify.sanitize(marked.parse(rawContent));
-
-        card.innerHTML = `
-            <h3>${p.title}</h3>
-            <div class="post-content">${safeHTML}</div>
-            <p>${date.toLocaleDateString()}</p>
-            <hr>
-        `
+        content.innerHTML = safeHTML;
         
-        container.appendChild(card);
+        postItem.appendChild(title);
+        postItem.appendChild(content);
+        
+        container.appendChild(postItem);
     });
 }

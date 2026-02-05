@@ -31,45 +31,64 @@ export async function loadProject() {
 function render_projects(projects) {
     const container = document.getElementById("my-projects"); 
     if (!container) return;
-
-    container.innerHTML = ""; // limpa antes
-
-        projects.forEach(p => {
-            const card = document.createElement("div");
-            const languagesHTML = p.languages 
-            ? p.languages.map(lang => `<span class="tag">${lang}</span>`).join(", ") 
-            : `<span class="tag">N/A</span>`;
-
-            card.innerHTML = `
-                <h3>${p.name}</h3>
-                <p>${p.description}</p>
-                <p><strong>Linguagem:</strong></p>
-                <div class="tags">
-                    ${languagesHTML}
-                </div>
-                <a href="${p.url}" target="_blank">See on GitHub</a>
-                <hr>
-            `;
-
-            container.appendChild(card);
-        });
-}
-
-/* document.getElementById("search").addEventListener("input", (e) => {
-    let projects = [];
-    const value = e.target.value.toLowerCase();
-
-    cachedProjects.forEach(project => {
-        if(!project.languages) return;
-
-        project.languages.forEach(lang => {
-            const isVisible = lang.toLowerCase().includes(value);
-            if(isVisible && !projects.includes(project)) {
-                projects.push(project);
-            }
-        })
-    });
     
-    render_projects(projects);
-})
-    */
+    container.innerHTML = ""; 
+    
+    projects.forEach((p) => {
+        const projectPage = document.createElement("div");
+        projectPage.className = "project-page";
+        
+        const imageSection = document.createElement("div");
+        imageSection.className = "project-image-container";
+        
+        const img = document.createElement("img");
+        img.className = "project images";
+        img.src = p.image_url || "../../docs/images/gif.png"; 
+        img.alt = p.name;
+        
+        const githubLink = document.createElement("a");
+        githubLink.href = p.url;
+        githubLink.target = "_blank";
+        githubLink.className = "github-link";
+        githubLink.innerHTML = `
+            <img src="../../docs/images/github logo.png" alt="GitHub" class="github-icon">
+            <span>See on GitHub</span>
+        `;
+        
+        imageSection.appendChild(img);
+        imageSection.appendChild(githubLink);
+        
+        // Info à direita
+        const infoSection = document.createElement("div");
+        infoSection.className = "project-info-container";
+        
+        const title = document.createElement("h2");
+        title.className = "project title";
+        title.textContent = p.name;
+        
+        const description = document.createElement("p");
+        description.className = "project description";
+        description.textContent = p.description;
+        
+        
+        const languagesTags = document.createElement("div");
+        languagesTags.className = "languages-tags";
+        if (p.languages && p.languages.length > 0) {
+            p.languages.forEach(lang => {
+                const tag = document.createElement("span");
+                tag.className = "language-tag";
+                tag.textContent = lang;
+                languagesTags.appendChild(tag);
+            });
+        }
+        
+        infoSection.appendChild(title);
+        infoSection.appendChild(description);
+        infoSection.appendChild(languagesTags);
+        
+        projectPage.appendChild(imageSection);
+        projectPage.appendChild(infoSection);
+        
+        container.appendChild(projectPage);
+    });
+}

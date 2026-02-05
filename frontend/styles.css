@@ -5,15 +5,15 @@ html {
 
 body {
     background-color: #000000;
-    margin: 0; /* Remove margens padrão */
+    margin: 0; 
 }
 
 section {
-    min-height: 100vh; /* Altura MÍNIMA de 100% da viewport */
+    min-height: 100vh; 
     padding: 80px 20px;
     display: flex;
-    align-items: flex-start; /* Centraliza verticalmente */
-    justify-content: center; /* Centraliza horizontalmente */
+    align-items: flex-start; 
+    justify-content: center; 
 }
 
 .status {
@@ -66,6 +66,8 @@ section {
     opacity: 0;
     transform: translateY(-20px);
     transition: all 0.3s;
+    font-family: Poppins;
+    font-size: 20px;
 }
 
 .toast.show {
@@ -80,9 +82,9 @@ section {
 .navbar {
     display: flex;
     align-items: center; 
-    justify-content: flex-end; /* Alinha tudo à direita */
-    gap: 40px; /* Espaçamento de 40px entre as opções */
-    padding-right: 40px; /* 40px da margem direita */
+    justify-content: flex-end; 
+    gap: 40px; 
+    padding-right: 40px; 
     margin-top: 10px;
 }
 
@@ -108,8 +110,8 @@ section {
 .home-page-content {
   padding-top: 50px;
   display: flex;
-  flex-direction: row;        /* texto + imagem lado a lado */
-  align-items: center;        /* mesmo eixo Y */
+  flex-direction: row;        
+  align-items: center;        
   padding-left: 40px;
   padding-right: 40px;
 }
@@ -121,7 +123,7 @@ section {
     font-weight: 700;
     line-height: 100%;
     letter-spacing: 1.6px;
-    margin-bottom: 72px; /* 72px até o primeiro texto */
+    margin-bottom: 72px; 
     padding-right: 40px;
 }
 
@@ -133,11 +135,10 @@ section {
     font-weight: 700;
     line-height: 100%;
     letter-spacing: 0.4px;
-    margin-bottom: 35px; /* 35px entre textos */
+    margin-bottom: 35px; 
     padding-right: 40px;
 }
 
-/* Remove margin do último texto (opcional) */
 .home-page.text:last-child {
     margin-bottom: 0;
 }
@@ -147,7 +148,7 @@ section {
     height: 480px;
     aspect-ratio: 77/96;
     border-radius: 35px;
-    flex: 1;                    /* ocupa a direita */
+    flex: 1;                   
     display: flex;
     justify-content: flex-end;
     object-fit: cover;
@@ -162,7 +163,7 @@ section {
     font-size: 60px;
     font-style: normal;
     font-weight: 700;
-    line-height: 100%; /* 60px */
+    line-height: 100%; 
     letter-spacing: 1.2px;
     position: absolute;
     x: 0px;
@@ -170,111 +171,215 @@ section {
     margin-bottom: 171px;
 }
 
-.project.title{
+#projects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 40px;
+}
+
+.personal.projects {
+    color: #FFF;
     text-align: center;
     font-family: Poppins;
-    font-size: 50px;
-    font-style: normal;
+    font-size: 60px;
     font-weight: 700;
-    line-height: 100%; /* 50px */
-    letter-spacing: 1px;
+    line-height: 100%;
+    letter-spacing: 1.2px;
+    margin-bottom: 100px;
+}
 
+#my-projects {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 200px; 
+}
+
+.project-page {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh; 
+}
+
+.project-page:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.project-image-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    flex-shrink: 0;
+}
+
+.project.images {
+    width: 100%;
+    max-width: 827px; 
+    min-width: 500px; 
+    height: auto;
+    max-height: 500px; 
+    min-height: 300px; 
+    border-radius: 38px;
+    object-fit: contain; 
+}
+
+.github-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: rgba(255, 255, 255, 0.80);
+    font-family: Poppins;
+    font-size: 23px;
+    font-weight: 700;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.github-link:hover {
+    color: #fff;
+}
+
+.github-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.project-info-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.project.title {
+    font-family: Poppins;
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: 1px;
     background: linear-gradient(90deg, #FF9500 0.19%, #C70000 99.81%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    margin: 0;
 }
 
-.project.description{
+.project.description {
     color: rgba(255, 255, 255, 0.80);
-
     font-family: Poppins;
     font-size: 23px;
-    font-style: normal;
     font-weight: 700;
-    line-height: 100%; /* 23px */
+    line-height: 140%;
     letter-spacing: 0.46px;
-
-    width: 421px;
-    height: 109px;
+    margin: 0;
 }
 
 .project.languages {
     color: rgba(255, 255, 255, 0.80);
-
-    text-align: right;
     font-family: Poppins;
     font-size: 23px;
-    font-style: normal;
     font-weight: 700;
-    line-height: 100%; /* 23px */
     letter-spacing: 0.46px;
+    margin: 0 0 10px 0;
 }
 
-.project.link {
-    color: rgba(255, 255, 255, 0.80);
+.languages-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
 
-    text-align: right;
+.language-tag {
+    padding: 8px 20px;
+    background: rgba(255, 149, 0, 0.15);
+    border: 1px solid rgba(255, 149, 0, 0.3);
+    border-radius: 20px;
+    color: #FF9500;
     font-family: Poppins;
-    font-size: 23px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 100%; /* 23px */
-    letter-spacing: 0.46px;
-    text-decoration-line: underline;
-    text-decoration-style: solid;
-    text-decoration-skip-ink: auto;
-    text-decoration-thickness: auto;
-    text-underline-offset: auto;
-    text-underline-position: from-font;
+    font-size: 16px;
+    font-weight: 600;
 }
 
-.project.images{
-    width: 827px;
-    height: 425px;
-    aspect-ratio: 72/37;
-    border-radius: 38px;
+@media (max-width: 1200px) {
+    .project-page {
+        flex-direction: column !important;
+        text-align: center;
+    }
+    
+    .project.images {
+        width: 100%;
+        max-width: 827px;
+        height: auto;
+    }
+    
+    .github-link {
+        justify-content: center;
+    }
 }
-
 .icons {
     width: 64px;
     height: 64px;
 }
 
+#posts {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    padding: 80px 60px;
+    min-height: 100vh;
+    position: relative;
+}
+
+#my-posts {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 60px; 
+}
+
+.post-item {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .post.title {
-    text-align: center;
     font-family: Poppins;
     font-size: 50px;
-    font-style: normal;
     font-weight: 700;
-    line-height: 100%; /* 50px */
+    line-height: 100%;
     letter-spacing: 1px;
     background: linear-gradient(90deg, #246E09 0.19%, #000368 99.81%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    margin: 0;
 }
 
 .post.content {
-    width: 679px;
-    height: 78px;
+    max-width: 679px;
     color: rgba(255, 255, 255, 0.80);
     font-family: Poppins;
     font-size: 23px;
-    font-style: normal;
     font-weight: 700;
-    line-height: 100%; /* 23px */
+    line-height: 140%;
     letter-spacing: 0.46px;
+    margin: 0;
 }
 
-.post.image {
+.posts-sidebar-image {
     width: 504px;
     height: 457px;
-    aspect-ratio: 75/68;
     border-radius: 50px;
+    object-fit: cover;
+    flex-shrink: 0;
 }
 
-/* Section centralizada */
 #contacts {
     display: flex;
     flex-direction: column;
@@ -284,7 +389,6 @@ section {
     text-align: center;
 }
 
-/* Título */
 .feedback.title {
     color: #FFF;
     font-family: Poppins;
@@ -292,10 +396,9 @@ section {
     font-weight: 700;
     line-height: 100%;
     letter-spacing: 1.2px;
-    margin-bottom: 30px; /* Remove position absolute */
+    margin-bottom: 30px; 
 }
 
-/* Descrição */
 .feedback.description {
     max-width: 995px;
     color: rgba(255, 255, 255, 0.80);
@@ -303,22 +406,20 @@ section {
     font-family: Poppins;
     font-size: 23px;
     font-weight: 700;
-    line-height: 140%; /* Ajusta para melhor legibilidade */
+    line-height: 140%;
     letter-spacing: 0.46px;
-    margin-bottom: 60px; /* Remove position absolute */
+    margin-bottom: 60px; 
 }
 
-/* Formulário */
 #contact-form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px; /* Espaçamento entre campos */
+    gap: 30px; 
     width: 100%;
     max-width: 975px;
 }
 
-/* Campos do formulário */
 .form.name,
 .form.email {
     width: 100%;
@@ -344,10 +445,9 @@ section {
     color: #fff;
     font-family: Poppins;
     font-size: 23px;
-    resize: none; /* Impede redimensionar */
+    resize: none; 
 }
 
-/* Placeholders */
 .form.name::placeholder,
 .form.email::placeholder {
     color: rgba(255, 255, 255, 0.30);
@@ -365,7 +465,6 @@ section {
     letter-spacing: 0.46px;
 }
 
-/* Botão */
 .submit.contact {
     width: 142px;
     height: 44px;
@@ -386,7 +485,6 @@ section {
     color: rgba(255, 255, 255, 0.80);
 }
 
-/* Remove foco azul dos inputs */
 .form.name:focus,
 .form.email:focus,
 .form.message:focus {
@@ -399,7 +497,7 @@ section {
     flex-direction: column;
     align-items: flex-start;
     padding: 60px 80px;
-    min-height: auto; /* Não força altura de tela cheia */
+    min-height: auto; 
     position: relative;
 }
 
@@ -459,4 +557,8 @@ a.contacts.text:hover {
     height: 1px;
     background: linear-gradient(90deg, #611B00 0%, #C73800 78.37%);
     border: none;
+}
+
+.admin {
+    background-color: #fff;
 }

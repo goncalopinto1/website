@@ -39,8 +39,7 @@ export function sendContacts(){
 
             if (res.ok) {
                 console.log("✅ Entrou no res.ok");
-                status.textContent = "Message received";
-                status.className = "status success";
+                showToast('✅ Mensagem enviada com sucesso!');
                 form.reset();  
                 console.log("✅ Form resetado");
             } else if(res.status === 429) {
