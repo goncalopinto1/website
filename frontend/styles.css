@@ -260,7 +260,7 @@ section {
     font-family: Poppins;
     font-size: 50px;
     font-weight: 700;
-    line-height: 100%;
+    line-height: 140%;
     letter-spacing: 1px;
     background: linear-gradient(90deg, #FF9500 0.19%, #C70000 99.81%);
     background-clip: text;
@@ -352,7 +352,7 @@ section {
     font-family: Poppins;
     font-size: 50px;
     font-weight: 700;
-    line-height: 100%;
+    line-height: 140%;
     letter-spacing: 1px;
     background: linear-gradient(90deg, #246E09 0.19%, #000368 99.81%);
     background-clip: text;
@@ -365,7 +365,7 @@ section {
     max-width: 679px;
     color: rgba(255, 255, 255, 0.80);
     font-family: Poppins;
-    font-size: 23px;
+    font-size: 15px;
     font-weight: 700;
     line-height: 140%;
     letter-spacing: 0.46px;
