@@ -44,28 +44,28 @@ Additionally, the admin has access to a **Filters Page**, which allows filtering
 ## Screenshots
 
 <p align="center" justify="center">
-<img src="../../docs/images/AboutMeSection.png">
+<img src="docs/images/AboutMeSection.png">
 </p>
 <p align="center">
   <b><i>Fig. 1  About me section </i></b>
 </p>
 
 <p align="center" justify="center">
-<img src="../../docs/images/ProjectsSection.png">
+<img src="docs/images/ProjectsSection.png">
 </p>
 <p align="center">
   <b><i>Fig. 2  Projects Section </i></b>
 </p>
 
 <p align="center" justify="center">
-<img src="../../docs/images/PostsSection.png">
+<img src="docs/images/PostsSection.png">
 </p>
 <p align="center">
   <b><i>Fig. 3  Posts section</i></b>
 </p>
 
 <p align="center" justify="center">
-<img src="../../docs/images/ContactsSection.png">
+<img src="docs/images/ContactsSection.png">
 </p>
 <p align="center">
   <b><i>Fig. 4  Contacts section </i></b>
