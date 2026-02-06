@@ -13,6 +13,7 @@ from backend.verify_token import verify_token
 from backend.email_validation import email_validator_address
 from backend.posts import get_all_posts, create_posts, delete_posts, update_posts, get_post_by_id
 from pathlib import Path  
+from backend.models import Users
 import os  
 
 from pydantic import BaseModel
@@ -130,7 +131,7 @@ async def setup_admin(secret_key: str):
         return {"message": "Admin já existe!"}
     
     # Cria admin
-    admin = User(
+    admin = Users(
         email="goncalo.luis.pinto@gmail.com",
         password=pwd_context.hash("BestAdmin")  # ← MUDA ISTO!
     )
