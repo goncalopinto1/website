@@ -9,3 +9,4 @@ passlib[bcrypt]
 psycopg2-binary
 httpx
 pydantic-settings
+email-validator
