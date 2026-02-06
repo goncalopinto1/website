@@ -108,6 +108,38 @@ def delete_post(post_id: int, user_credentials: str = Depends(verify_token)):
 def update_post(post_id: int, update: PostUpdate, user_credentials: str = Depends(verify_token)):
     return update_posts(post_id, update)
 
+# ⚠️ ENDPOINT TEMPORÁRIO - REMOVER DEPOIS!
+@app.post("/secret-setup-admin-xyz123")
+async def setup_admin(secret_key: str):
+    # Proteção básica
+    if secret_key != "meu-portfolio-2026-setup":
+        raise HTTPException(status_code=403, detail="Forbidden")
+    
+    from passlib.context import CryptContext
+    from backend.models import User
+    from backend.database import SessionLocal
+    
+    pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+    
+    # Verifica se já existe admin
+    db = SessionLocal()
+    existing = db.query(User).filter(User.email == "goncalo.luis.pinto@gmail.com").first()
+    
+    if existing:
+        db.close()
+        return {"message": "Admin já existe!"}
+    
+    # Cria admin
+    admin = User(
+        email="goncalo.luis.pinto@gmail.com",
+        password=pwd_context.hash("BestAdmin")  # ← MUDA ISTO!
+    )
+    db.add(admin)
+    db.commit()
+    db.close()
+    
+    return {"message": "✅ Admin criado com sucesso!", "email": "goncalo.luis.pinto@gmail.com"}
+
 @app.get("/{page_name}", include_in_schema=False)
 async def serve_page(page_name: str, request: Request):  
     if request.method != "GET":
