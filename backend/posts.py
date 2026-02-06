@@ -1,6 +1,6 @@
-from database import SessionLocal
-from models import Posts
-from schema import PostOut, PostCreate, PostUpdate
+from backend.database import SessionLocal
+from backend.models import Posts
+from backend.schema import PostOut, PostCreate, PostUpdate
 import resend
 import os
 from dotenv import load_dotenv

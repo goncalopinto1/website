@@ -66,7 +66,7 @@ async function loadContacts(){
         return;
     } else {
         try {
-            const res = await fetch('http://localhost:8000/contact', {
+            const res = await fetch('/contact', {
                 headers: { "Authorization": `Bearer ${token}` }
             })
 
@@ -148,7 +148,7 @@ async function deleteContact(id){
     if(!ok) return 
 
     try{
-        const res = await fetch(`http://localhost:8000/contact/${id}`, {
+        const res = await fetch(`/contact/${id}`, {
             method: "DELETE",
             headers: { "Authorization": `Bearer ${token}` }
         });
@@ -168,7 +168,7 @@ async function deleteContact(id){
 
 async function markAsRead(id){
     try {
-        const res = await fetch(`http://localhost:8000/contact/${id}`, {
+        const res = await fetch(`/contact/${id}`, {
             method: "PATCH", //modifying some fields
             headers:  {
                 "Content-Type": "application/json" ,
@@ -263,7 +263,7 @@ document.getElementById("search").addEventListener("input", (e) => {
 });
 
 async function loadPosts(){
-    const res = await fetch("http://localhost:8000/post");
+    const res = await fetch("/post");
 
     if(!res.ok){
         console.log("Error fetching the posts");
@@ -328,7 +328,7 @@ async function deletePost(id){
     const ok = confirm("Are you sure you want to delete this Post?")
     if(!ok) return;
 
-    const res = await fetch(`http://localhost:8000/post/${id}`, {
+    const res = await fetch(`/post/${id}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${token}` }
     });

@@ -3,3 +3,16 @@ backend/__pycache__/
 backend/db.sqlite
 backend/*.pyc
 backend/.env
+
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.so
+*.egg-info/
+.env
+.venv
+venv/
+db.sqlite
+*.db
+.DS_Store

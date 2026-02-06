@@ -18,7 +18,7 @@ export async function initPosts(){
 }
 
 async function fetchPosts(){
-    const res = await fetch("http://localhost:8000/post");
+    const res = await fetch("/post");
 
     if(!res.ok){
         console.log("Could not fetch the posts");

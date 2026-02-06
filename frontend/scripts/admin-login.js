@@ -14,16 +14,19 @@ if (form) {
         console.log("Password:", password ? "***" : "empty");
         
         // OAuth2 needs this specific format
-        const formData = new FormData();
-        formData.append('username', email);
-        formData.append('password', password);
+        const params = new URLSearchParams();
+        params.append('username', email);
+        params.append('password', password);
         
         try {
             console.log("Sending request...");
-            const res = await fetch("http://localhost:8000/admin/login", {
-                method: "POST",
-                body: formData
-            });
+            const res = await fetch("/admin/login", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'  
+            },
+            body: params.toString()  
+        });
             
             console.log("Response status:", res.status);
             
@@ -34,7 +37,7 @@ if (form) {
                 console.log("Token received!");
                 localStorage.setItem("token", token);
                 
-                window.location.href = "../pages/admin.html";
+                window.location.href = "/admin";
             } else {
                 showToast("Wrong email or password ❌", "error");
             }
