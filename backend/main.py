@@ -117,7 +117,7 @@ async def setup_admin(secret_key: str):
         raise HTTPException(status_code=403, detail="Forbidden")
     
     from passlib.context import CryptContext
-    from backend.models import User
+    from backend.models import Users
     from backend.database import SessionLocal
     
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
