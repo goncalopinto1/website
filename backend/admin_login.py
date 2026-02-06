@@ -1,10 +1,10 @@
 from fastapi.security import OAuth2PasswordRequestForm
 from jose import jwt
 from passlib.context import CryptContext
-from database import SessionLocal
+from backend.database import SessionLocal
 from datetime import datetime, timedelta
 from fastapi import Depends, HTTPException, status
-from models import Users
+from backend.models import Users
 from dotenv import load_dotenv
 import os
 pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")

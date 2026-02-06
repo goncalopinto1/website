@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     try{
-        const res = await fetch(`http://localhost:8000/contact/${contact_id}`, {
+        const res = await fetch(`/contact/${contact_id}`, {
             method: "GET",
             headers: { "Authorization": `Bearer ${token}` }
         });
@@ -74,7 +74,7 @@ document.getElementById("reply-form").addEventListener("submit", async (e) => {
     }
 
     try {
-        const res = await fetch(`http://localhost:8000/contact/${contact_id}/reply`, {
+        const res = await fetch(`/contact/${contact_id}/reply`, {
             method: "POST",
             headers: { 
                 "Content-Type": "application/json",
@@ -93,7 +93,7 @@ document.getElementById("reply-form").addEventListener("submit", async (e) => {
         status.innerText = "Reply sent!";
         status.className = "status success";
 
-        const r = await fetch(`http://localhost:8000/contact/${contact_id}`, {
+        const r = await fetch(`/contact/${contact_id}`, {
             method: "PATCH", //modifying some fields
             headers:  {
                 "Content-Type": "application/json" ,

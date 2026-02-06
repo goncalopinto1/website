@@ -1,28 +1,51 @@
 from fastapi import FastAPI, APIRouter, Depends, Request
+from fastapi import HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.staticfiles import StaticFiles  
+from fastapi.responses import FileResponse
+from backend.contacts import create_contact_in_db, delete_contacts, fetch_contacts, mark_read, reply, get_contact_by_id, check_rate_limit, message_length
+from backend.github_projects import fetch_projects
+from backend.schema import ContactCreate, ContactOut, ContactReadUpdate, Project, ReplyMessage, PostCreate, PostOut, PostUpdate
+from backend.database import engine, Base
+from backend.admin_login import admin_login
+from backend.verify_token import verify_token
+from backend.email_validation import email_validator_address
+from backend.posts import get_all_posts, create_posts, delete_posts, update_posts, get_post_by_id
+from pathlib import Path  
+import os  
 
-from contacts import create_contact_in_db, delete_contacts, fetch_contacts, mark_read, reply, get_contact_by_id, check_rate_limit, message_length
-from github_projects import fetch_projects
-from schema import ContactCreate, ContactOut, ContactReadUpdate, Project, ReplyMessage, PostCreate, PostOut, PostUpdate
-from database import engine, Base
-from admin_login import admin_login
-from verify_token import verify_token
-from email_validation import email_validator_address
-from posts import get_all_posts, create_posts, delete_posts, update_posts, get_post_by_id
+from pydantic import BaseModel
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+FRONTEND_DIR = BASE_DIR / "frontend"
 
 Base.metadata.create_all(bind=engine)
-
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # permite qualquer origem (para testes)
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-router = APIRouter(tags=["Authentication"])
+# Mounts específicos
+app.mount("/scripts", StaticFiles(directory=str(FRONTEND_DIR / "scripts")), name="scripts")
+app.mount("/data", StaticFiles(directory=str(FRONTEND_DIR / "data")), name="data")
+app.mount("/pages", StaticFiles(directory=str(FRONTEND_DIR / "pages")), name="pages")
+app.mount("/docs", StaticFiles(directory=str(BASE_DIR / "docs")), name="docs")
+app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
+
+@app.get("/", include_in_schema=False)
+async def serve_frontend():
+    return FileResponse(str(FRONTEND_DIR / "index.html"))
+
+
+@app.get("/styles.css")
+async def serve_css():
+    return FileResponse(str(FRONTEND_DIR / "styles.css"))
+
 
 @app.get("/contact", response_model=list[ContactOut])
 def get_contact(current_user: str = Depends(verify_token)):
@@ -84,3 +107,18 @@ def delete_post(post_id: int, user_credentials: str = Depends(verify_token)):
 @app.patch("/post/{post_id}")
 def update_post(post_id: int, update: PostUpdate, user_credentials: str = Depends(verify_token)):
     return update_posts(post_id, update)
+
+@app.get("/{page_name}", include_in_schema=False)
+async def serve_page(page_name: str, request: Request):  
+    if request.method != "GET":
+        raise HTTPException(status_code=405, detail="Method not allowed")
+    
+    allowed_pages = ["admin", "admin-login", "add-post", "edit-post", "filters", "reply"]
+    
+    if page_name in allowed_pages:
+        file_path = FRONTEND_DIR / "pages" / f"{page_name}.html"
+        if file_path.exists():
+            return FileResponse(str(file_path))
+    
+    raise HTTPException(status_code=404, detail="Page not found")
+

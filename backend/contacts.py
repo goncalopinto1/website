@@ -1,11 +1,11 @@
-from database import SessionLocal
-from models import ContactMessage
-from schema import ContactCreate, ContactReadUpdate, ReplyMessage
+from backend.database import SessionLocal
+from backend.models import ContactMessage
+from backend.schema import ContactCreate, ContactReadUpdate, ReplyMessage
 from datetime import datetime, timedelta
 from fastapi import HTTPException
 from collections import defaultdict
 import resend
-from schema import ContactOut
+from backend.schema import ContactOut
 from dotenv import load_dotenv
 import os
 

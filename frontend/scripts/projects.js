@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 export async function loadProject() {
     try {
-        const res = await fetch("../data/projects.json");
+        const res = await fetch("/data/projects.json");
         cachedProjects = await res.json();
 
         languages = [];

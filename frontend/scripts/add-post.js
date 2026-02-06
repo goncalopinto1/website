@@ -22,7 +22,7 @@ async function CreatePost(){
             published: document.getElementById("published").checked
         };
 
-        const res = await fetch("http://localhost:8000/post", {
+        const res = await fetch("/post", {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -44,6 +44,6 @@ async function CreatePost(){
     });
 
     document.getElementById("home").addEventListener("click", () => {
-        window.location.href = "../pages/admin.html";
+        window.location.href = "/admin";
     })
 }

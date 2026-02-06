@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function EditPost(id){
-    const res = await fetch(`http://localhost:8000/post/${id}`, {
+    const res = await fetch(`/post/${id}`, {
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
     });
@@ -59,7 +59,7 @@ async function EditPost(id){
             published: document.getElementById("published").checked,
         };
 
-        const res = await fetch(`http://localhost:8000/post/${id}`, {
+        const res = await fetch(`/post/${id}`, {
             method: "PATCH",
             headers: {
                 "Authorization": `Bearer ${token}`,

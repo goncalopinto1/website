@@ -1,8 +1,8 @@
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
-from database import SessionLocal
-from models import Users
+from backend.database import SessionLocal
+from backend.models import Users
 from dotenv import load_dotenv
 import os
 
