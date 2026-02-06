@@ -124,7 +124,7 @@ async def setup_admin(secret_key: str):
     
     # Verifica se já existe admin
     db = SessionLocal()
-    existing = db.query(User).filter(User.email == "goncalo.luis.pinto@gmail.com").first()
+    existing = db.query(Users).filter(Users.email == "goncalo.luis.pinto@gmail.com").first()
     
     if existing:
         db.close()
