@@ -65,6 +65,14 @@ Additionally, the admin has access to a **Filters Page**, which allows filtering
 </p>
 
 <p align="center" justify="center">
+<img src="docs/images/Feedback.png">
+</p>
+<p align="center">
+  <b><i>Fig. 4  Feedback section </i></b>
+</p>
+
+
+<p align="center" justify="center">
 <img src="docs/images/ContactsSection.png">
 </p>
 <p align="center">
