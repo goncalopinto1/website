@@ -109,37 +109,43 @@ def delete_post(post_id: int, user_credentials: str = Depends(verify_token)):
 def update_post(post_id: int, update: PostUpdate, user_credentials: str = Depends(verify_token)):
     return update_posts(post_id, update)
 
-# ⚠️ ENDPOINT TEMPORÁRIO - REMOVER DEPOIS!
-@app.post("/secret-setup-admin-xyz123")
-async def setup_admin(secret_key: str):
-    # Proteção básica
-    if secret_key != "meu-portfolio-2026-setup":
-        raise HTTPException(status_code=403, detail="Forbidden")
-    
-    from passlib.context import CryptContext
-    from backend.models import Users
-    from backend.database import SessionLocal
-    
-    pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-    
-    # Verifica se já existe admin
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.on_event("startup")
+def startup():
+    create_admin_if_not_exists()
+
+from passlib.context import CryptContext
+from backend.database import SessionLocal
+from backend.models import Users
+import os
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def create_admin_if_not_exists():
+    if os.getenv("ADMIN_BOOTSTRAP") != "true":
+        return
+
     db = SessionLocal()
-    existing = db.query(Users).filter(Users.email == "goncalo.luis.pinto@gmail.com").first()
-    
-    if existing:
+
+    email = os.getenv("ADMIN_EMAIL")
+    password = os.getenv("ADMIN_PASSWORD")
+
+    exists = db.query(Users).filter(Users.email == email).first()
+    if exists:
         db.close()
-        return {"message": "Admin já existe!"}
-    
-    # Cria admin
+        return
+
     admin = Users(
-        email="goncalo.luis.pinto@gmail.com",
-        password=pwd_context.hash("BestAdmin")  # ← MUDA ISTO!
+        email=email,
+        hashed_password=pwd_context.hash(password.encode("utf-8")[:72]),
     )
+
     db.add(admin)
     db.commit()
     db.close()
-    
-    return {"message": "✅ Admin criado com sucesso!", "email": "goncalo.luis.pinto@gmail.com"}
 
 @app.get("/{page_name}", include_in_schema=False)
 async def serve_page(page_name: str, request: Request):  
