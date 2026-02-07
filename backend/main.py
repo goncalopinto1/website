@@ -113,26 +113,24 @@ def update_post(post_id: int, update: PostUpdate, user_credentials: str = Depend
 @app.post("/secret-setup-admin-xyz123")
 async def setup_admin(secret_key: str):
     if secret_key != "meu-portfolio-2026-setup":
-        raise HTTPException(status_code=403, detail="Forbidden")
+        raise HTTPException(status_code=403)
     
-    from passlib.context import CryptContext
+    import bcrypt  # ✅ Usa bcrypt direto
     from backend.models import Users
     from backend.database import SessionLocal
     
-    pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-    
     db = SessionLocal()
     
-    # ✅ Apaga se existir
+    # Apaga se existir
     existing = db.query(Users).filter(Users.email == "goncalo.luis.pinto@gmail.com").first()
     if existing:
-        print(f"⚠️ Admin já existe! Apagando...")
         db.delete(existing)
         db.commit()
     
-    # Cria novo
-    password = "admin123"  # ✅ Simples
-    hashed = pwd_context.hash(password)
+    # Hash com bcrypt direto (evita o bug do passlib)
+    password = "admin123"
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
     
     admin = Users(
         email="goncalo.luis.pinto@gmail.com",
@@ -142,12 +140,7 @@ async def setup_admin(secret_key: str):
     db.commit()
     db.close()
     
-    return {
-        "message": "✅ Admin criado/recriado!",
-        "email": "goncalo.luis.pinto@gmail.com",
-        "password": password,  # ⚠️ Só para debug - remove depois
-        "hash_preview": hashed[:30] + "..."
-    }
+    return {"message": "✅ Admin criado!", "email": "goncalo.luis.pinto@gmail.com"}
 
 @app.get("/{page_name}", include_in_schema=False)
 async def serve_page(page_name: str, request: Request):  

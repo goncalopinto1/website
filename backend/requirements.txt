@@ -11,3 +11,4 @@ httpx
 pydantic-settings
 email-validator
 python-multipart
+bcrypt==4.1.2
