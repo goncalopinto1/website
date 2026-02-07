@@ -112,7 +112,6 @@ def update_post(post_id: int, update: PostUpdate, user_credentials: str = Depend
 # ⚠️ ENDPOINT TEMPORÁRIO - REMOVER DEPOIS!
 @app.post("/secret-setup-admin-xyz123")
 async def setup_admin(secret_key: str):
-    # Proteção básica
     if secret_key != "meu-portfolio-2026-setup":
         raise HTTPException(status_code=403, detail="Forbidden")
     
@@ -122,24 +121,33 @@ async def setup_admin(secret_key: str):
     
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     
-    # Verifica se já existe admin
     db = SessionLocal()
+    
+    # ✅ Apaga se existir
     existing = db.query(Users).filter(Users.email == "goncalo.luis.pinto@gmail.com").first()
-    
     if existing:
-        db.close()
-        return {"message": "Admin já existe!"}
+        print(f"⚠️ Admin já existe! Apagando...")
+        db.delete(existing)
+        db.commit()
     
-    # Cria admin
+    # Cria novo
+    password = "admin123"  # ✅ Simples
+    hashed = pwd_context.hash(password)
+    
     admin = Users(
         email="goncalo.luis.pinto@gmail.com",
-        hashed_password=pwd_context.hash("BestAdmin")  # ← MUDA ISTO!
+        hashed_password=hashed
     )
     db.add(admin)
     db.commit()
     db.close()
     
-    return {"message": "✅ Admin criado com sucesso!", "email": "goncalo.luis.pinto@gmail.com"}
+    return {
+        "message": "✅ Admin criado/recriado!",
+        "email": "goncalo.luis.pinto@gmail.com",
+        "password": password,  # ⚠️ Só para debug - remove depois
+        "hash_preview": hashed[:30] + "..."
+    }
 
 @app.get("/{page_name}", include_in_schema=False)
 async def serve_page(page_name: str, request: Request):  
