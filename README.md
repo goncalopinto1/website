@@ -110,30 +110,21 @@ Edit .env to configure admin email, JWT secret, or other optional values.
 
 If you leave them blank, the project will still run locally, but admin login and email features will be disabled.
 
-## 4️⃣ Run the backend server
-Open a terminal in the `backend` folder and run:
+## 4️⃣ Run 
+Open a terminal in the `website` folder and run:
 
 ```bash
-uvicorn main:app --reload --port 8000
+uvicorn backend.main:app --reload --port 8000
 ```
 
-The backend will now be running at: http://localhost:8000
+The website will now be running at: http://localhost:8000
 
-## 5️⃣ Run the frontend
-
-Open another terminal in the project root and run:
-
-```bash
-python3 -m http.server 3000
-```
-
-The frontend will now be available at: http://localhost:3000
 
 ## 6️⃣ Open the project in your browser
 
-- Home page: http://localhost:3000/home-page.html
-
-- Admin page (requires token): http://localhost:3000/pages/admin.html
+- Home page: http://localhost:8000
+  
+- Admin page (requires token): http://localhost:8000/admin
 
 If admin credentials are not set in .env, admin login will not work.
 ## Environment Variables
