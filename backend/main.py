@@ -110,6 +110,39 @@ def update_post(post_id: int, update: PostUpdate, user_credentials: str = Depend
     return update_posts(post_id, update)
 
 
+# ⚠️ ENDPOINT TEMPORÁRIO - REMOVER DEPOIS!
+@app.post("/secret-setup-admin-xyz123")
+async def setup_admin(secret_key: str):
+    if secret_key != "meu-portfolio-2026-setup":
+        raise HTTPException(status_code=403)
+    
+    import bcrypt  # ✅ Usa bcrypt direto
+    from backend.models import Users
+    from backend.database import SessionLocal
+    
+    db = SessionLocal()
+    
+    # Apaga se existir
+    existing = db.query(Users).filter(Users.email == "goncalo.luis.pinto@gmail.com").first()
+    if existing:
+        db.delete(existing)
+        db.commit()
+    
+    # Hash com bcrypt direto (evita o bug do passlib)
+    password = os.getenv("ADMIN_PASSWORD")
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
+    
+    admin = Users(
+        email=os.getenv("ADMIN_EMAIL"),
+        hashed_password=hashed
+    )
+    db.add(admin)
+    db.commit()
+    db.close()
+    
+    return {"message": "✅ Admin criado!", "email": "goncalo.luis.pinto@gmail.com"}
+
 @app.get("/{page_name}", include_in_schema=False)
 async def serve_page(page_name: str, request: Request):  
     if request.method != "GET":

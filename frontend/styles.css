@@ -562,3 +562,14 @@ a.contacts.text:hover {
 .admin {
     background-color: #fff;
 }
+
+.admin.title {
+    color: #000000;
+    font-family: Poppins;
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: 1.6px;
+    margin-bottom: 72px; 
+    padding-right: 40px;
+}
