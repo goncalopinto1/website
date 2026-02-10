@@ -20,11 +20,15 @@
         <div >
             <h1 class="admin title">Contacts</h1>
 
-            <div>
-                <input type="search" id="search" placeholder="Search by name/email">
+            <div class="search-bar">
+                <input placeholder="Searth contacts..." type="search" id="search" name="text" class="input">
+
+            <button id="filter" type="button">
+            <span class="button_top"> Filter </span>
+            </button>
+
             </div>
 
-            <button type="button" id="filter">Filter</button>
 
             <p id="status" class = "status hidden"></p>
 
@@ -34,7 +38,11 @@
         <div>
             <h1 class="admin title">Posts</h1>
 
-            <button id="add-button" type="button" class="add-btn">Create Post</button>
+
+            <button id="add-button" type="button">
+            <span class="button_top"> Create Post </span>
+            </button>
+
             <div id="posts-admin"></div>
         </div>
 

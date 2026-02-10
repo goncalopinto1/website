@@ -37,8 +37,8 @@ async function EditPost(id){
     const safeHTML = DOMPurify.sanitize(marked.parse(rawContent));
 
     card.innerHTML = `
-        <h3><strong>Title:</strong>${post.title}</h3>
-        <div class="post-content">${safeHTML}</div>
+        <h3 class="admin subtitle"><strong>Title:</strong>${post.title}</h3>
+        <div class="post-content admin text">${safeHTML}</div>
     `
 
     container.appendChild(card);

@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        document.getElementById("from").innerHTML =`<strong>From: </strong>${contact.name} (${contact.email})`;
-        document.getElementById("message").innerHTML = `<strong>Message: </strong>${contact.message}`;
+        document.getElementById("from").innerHTML =`<p class="admin text"><strong>From: </strong>${contact.name} (${contact.email})</p>`;
+        document.getElementById("message").innerHTML = `<p class="admin text"><strong>Message: </strong>${contact.message}</p>`;
 
     } catch (error){
         console.log("❌ Error:", error);
