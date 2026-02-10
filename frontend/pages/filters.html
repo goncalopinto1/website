@@ -10,63 +10,68 @@
         <script type="module" src="../scripts/filters.js"></script>
     </head>
     <body class="admin">
-        <h1>Filters</h1>
+        <h1 class="admin title">Filters</h1>
 
         <div class="status">
-            <h2>Status:</h2>
-            <label>
+            <h2 class="admin subtitle"><strong>Status:</strong></h2>
+            <label class="admin text">
                 <input type="radio" id="read" name="status" value="read">
                 Read
             </label> 
 
-            <label>
+            <label class="admin text">
                 <input type="radio" id="unread" name="status" value="unread">
                 Unread
             </label> 
         </div>
 
         <div class="order">
-            <h2>Order:</h2>
-            <label>
+            <h2 class="admin subtitle"><strong>Order:</strong></h2>
+            <label class="admin text">
                 <input type="radio" id="recent-oldest" name="order" value="recent-oldest">
                 Recent-Oldest
             </label> 
 
-            <label>
+            <label class="admin text">
                 <input type="radio" id="oldest-recent" name="order" value="oldest-recent">
                 Oldest-Recent
             </label> 
         </div>
 
         <div class="date-range">
-            <h2>Date Range:</h2>
-            <label>
+            <h2 class="admin subtitle"><strong>Date Range:</strong></h2>
+            <label class="admin text">
                 <input type="date" id="date-from" name="date-from">
                 From:
             </label> 
 
-            <label>
+            <label class="admin text">
                 <input type="date" id="date-to" name="date-to">
                 To:
             </label> 
         </div>
 
         <div class="Alphabetical">
-            <h2>Alphabetical:</h2>
-            <label>
+            <h2 class="admin subtitle"><strong>Alphabetical:</strong></h2>
+            <label class="admin text">
                 <input type="radio" id="a-z" name="alphabetic" value="a-z">
                 A-Z
             </label> 
 
-            <label>
+            <label class="admin text">
                 <input type="radio" id="z-a" name="alphabetic" value="z-a">
                 Z-A
             </label> 
         </div>
 
         <div class="filter-actions">
-            <button type="button" id="apply-filters">Apply filters</button>
-            <button type="button" id="clear-filters">Clear all</button>
+            <button type="button" id="apply-filters">
+            <span class="button_top"> Apply Filters </span>
+            </button>
+
+            <button type="button" id="clear-filters">
+            <span class="button_top"> Clear Filters </span>
+            </button>
         </div>
     </body>
 </html>

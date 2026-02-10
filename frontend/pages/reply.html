@@ -10,7 +10,7 @@
         <script type="module" defer src="../scripts/reply.js"></script>
     </head>
     <body class="admin">
-        <h1>Respond to contact</h1>
+        <h1 class="admin title">Respond to contact</h1>
 
         <div class="contact-info">
             <p id="from"></p>
@@ -19,7 +19,9 @@
 
         <form id="reply-form">
             <textarea id="reply-message" type="text" required></textarea>
-            <button type="submit">Send reply</button>
+            <button type="submit">
+            <span class="button_top"> Send Reply </span>
+            </button>
         </form>
 
         <p id="status" class="status hidden"></p>

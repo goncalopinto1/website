@@ -9,7 +9,7 @@
         <script type="module" src="../scripts/add-post.js"></script>
     </head>
     <body class="admin">
-        <h1>Create a Post</h1>
+        <h1 class="admin title">Create a Post</h1>
 
         <form id="add-post">
             <input id="title" "text" placeholder="title" required/>
@@ -20,10 +20,15 @@
                 Publish this Post
             </label>
             
-            <button type="submit">Create Post</button>
+            <button type="submit">
+            <span class="button_top"> Create Post </span>
+            </button>
+
         </form>
 
         <p id="status" class="status hidden"></p>
-        <button id="home" type="button">Back to admin page</button>
+        <button id="home" type="button">
+            <span class="button_top"> Back to admin </span>
+        </button>
     </body>
 </html>

@@ -37,11 +37,13 @@ section {
 }
 
 .contact-card.not-read{
-    color : #000000
+    color : #000000;
+    padding: 10px;
 }
 
 .contact-card.read {
-    color: darkgray
+    color: darkgray;
+    padding: 10px;
 }
 
 .hide {
@@ -561,4 +563,107 @@ a.contacts.text:hover {
 
 .admin {
     background-color: #fff;
+}
+
+.admin.title {
+    color: #000000;
+    font-family: Poppins;
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: 1.6px;
+    margin-bottom: 20px; 
+    margin-left: 20px;
+}
+
+/* From Uiverse.io by Voxybuns */ 
+button {
+  /* Variables */
+  --button_radius: 0.75em;
+  --button_color: #e8e8e8;
+  --button_outline_color: #000000;
+  font-size: 10px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--button_radius);
+  background: var(--button_outline_color);
+      margin-left: 20px;
+
+}
+
+.button_top {
+  display: block;
+  box-sizing: border-box;
+  border: 2px solid var(--button_outline_color);
+  border-radius: var(--button_radius);
+  padding: 0.75em 1.5em;
+  background: var(--button_color);
+  color: var(--button_outline_color);
+  transform: translateY(-0.2em);
+  transition: transform 0.1s ease;
+}
+
+button:hover .button_top {
+  /* Pull the button upwards when hovered */
+  transform: translateY(-0.33em);
+}
+
+button:active .button_top {
+  /* Push the button downwards when pressed */
+  transform: translateY(0);
+}
+
+.admin.subtitle {
+    color: rgba(23, 2, 2, 0.8);
+    font-family: Poppins;
+    font-size: 20px;
+    font-weight: 1000;
+    line-height: 100%;
+    letter-spacing: 0.4px;
+    margin-bottom: 35px; 
+    padding-right: 40px;
+    margin-left: 20px;
+}
+
+.admin.text {
+    color: rgba(39, 39, 39, 0.8);
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: 0.4px;
+    margin-bottom: 35px; 
+    padding-right: 40px;
+    margin-left: 20px;
+}
+
+.search-bar{
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.input {
+  width: 100%;
+  max-width: 220px;
+  height: 45px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1.5px solid lightgrey;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  box-shadow: 0px 0px 20px -18px;
+}
+
+.input:hover {
+  border: 2px solid lightgrey;
+  box-shadow: 0px 0px 20px -17px;
+}
+
+.input:active {
+  transform: scale(0.95);
+}
+
+.input:focus {
+  border: 2px solid grey;
 }

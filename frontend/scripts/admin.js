@@ -100,14 +100,18 @@ function renderContacts(cachedContacts) {
         else card.className = "contact-card read";
 
         card.innerHTML = `
-        <h3>${c.name}</h3>
-        <p>${c.email}</p>
-        <p>${c.message}</p>
+        <h3 class="admin subtitle"><strong>Name: </strong>${c.name}</h3>
+        <p class="admin text"><strong>Email: </strong>${c.email}</p>
+        <p class="admin text"><strong>Message: </strong>${c.message}</p>
         `
         const deleteButton = document.createElement("button");
-        deleteButton.classList.add("delete-btn");
+        const delSpan = document.createElement("span");
+        delSpan.className = "button_top";
+        delSpan.textContent = "Delete Contact"
+
         deleteButton.type = "button";
-        deleteButton.textContent = "Delete";
+
+        deleteButton.appendChild(delSpan);
 
         deleteButton.addEventListener("click", () => {
             deleteContact(c.id);
@@ -115,9 +119,13 @@ function renderContacts(cachedContacts) {
 
         if(c.is_read == 0){
             const markReadButton = document.createElement("button");
-            markReadButton.classList.add("mark-read-btn");
             markReadButton.type = "button";
-            markReadButton.textContent = "Mark as read"
+
+            const markSpan = document.createElement("span");
+            markSpan.className = "button_top";
+            markSpan.textContent = "Mark as read";
+
+            markReadButton.appendChild(markSpan);
 
             markReadButton.addEventListener("click", () => {
                 markAsRead(c.id);
@@ -127,9 +135,14 @@ function renderContacts(cachedContacts) {
         }
 
         const responseButton = document.createElement("button");
-        responseButton.classList.add("response-btn");
         responseButton.type = "button";
-        responseButton.textContent = "Respond to message";
+
+        const respSpan = document.createElement("span");
+        respSpan.className = "button_top";
+        respSpan.textContent = "Respond to contact";
+
+        responseButton.appendChild(respSpan);
+            
 
         responseButton.addEventListener("click", () => {
             window.location.href = `../pages/reply.html?contact_id=${c.id}`;
@@ -294,24 +307,32 @@ function renderPosts(posts){
         const safeHTML = DOMPurify.sanitize(marked.parse(rawContent));
 
         card.innerHTML = `
-            <h3><strong>Title: </strong>${p.title}</h3>
-            <div class="post-content">${safeHTML}</div>
-            <p><strong>Date: </strong>${date.toLocaleDateString()}</p>
-            <p><strong>Is published?: </strong>${p.published}</p>
+            <h3 class="admin subtitle"><strong>Title: </strong>${p.title}</h3>
+            <div class="post-content admin text">${safeHTML}</div>
+            <p class="admin text"><strong>Date: </strong>${date.toLocaleDateString()}</p>
+            <p class="admin text"><strong>Published: </strong>${p.published}</p>
         `
         const deleteButton = document.createElement("button");
-        deleteButton.classList.add("delete-btn");
         deleteButton.type = "button";
-        deleteButton.textContent = "Delete Post";
+
+        const delSpan = document.createElement("span");
+        delSpan.className = "button_top";
+        delSpan.textContent = "Delete Post";
+
+        deleteButton.appendChild(delSpan);
 
         deleteButton.addEventListener("click", () => {
             deletePost(p.id);
         });
 
         const editButton = document.createElement("button");
-        editButton.classList.add("edit-btn");
         editButton.type = "button";
-        editButton.textContent = "Edit Post";
+
+        const editSpan = document.createElement("span");
+        editSpan.className = "button_top";
+        editSpan.textContent = "Edit Post";
+
+        editButton.appendChild(editSpan);
 
         editButton.addEventListener("click", () => {
             window.location.href = `../pages/edit-post.html?post_id=${p.id}`;

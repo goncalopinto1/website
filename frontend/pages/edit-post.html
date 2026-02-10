@@ -15,12 +15,12 @@
         <script type="module" src="../scripts/edit-post.js"></script>
     </head>
     <body class="admin">
-        <h1>Edit Post</h1>
+        <h1 class="admin title">Edit Post</h1>
 
         <div id="atual-post"></div>
 
-        <form id="edit-post">
-            <input id="title" type="text" placeholder="title" required/>
+        <form  id="edit-post">
+            <input  id="title" type="text" placeholder="title" required/>
             <textarea id="content" type="text" placeholder="content" required></textarea>
 
             <label>
@@ -28,7 +28,10 @@
                 Publish this Post
             </label>
             
-            <button id="edit" type="submit">Edit Post</button>
+            <button id="edit" type="submit">
+            <span class="button_top"> Edit Post </span>
+            </button>
+
         </form>
     </body>
 </html>
