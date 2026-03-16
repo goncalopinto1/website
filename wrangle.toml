@@ -1,0 +1,9 @@
+name = "website"
+compatibility_date = "2025-01-01"
+workers_dev = false
+
+assets = { directory = "./frontend" }
+
+routes = [
+  { pattern = "goncalopinto.dev", custom_domain = true }
+]
